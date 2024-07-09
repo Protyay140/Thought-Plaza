@@ -23,13 +23,13 @@ const Header = () => {
                     </form>
                 </div>
                 <div>
-                    <Button className='lg:hidden rounded-full hover:bg-red-400 focus:outline-none focus:ring-1 focus:ring-gray-500' color='gray'>
+                    <Button className=' lg:hidden rounded-full hover:bg-red-400 focus:outline-none focus:ring-1 focus:ring-gray-500' color='gray'>
                         <CiSearch className='text-black'/>
                     </Button>
                 </div>
                 <div className='flex gap-2 md:order-2'>
                     <div className='theme'>
-                        <Button className=' rounded-full bg-white hover:bg-white focus:outline-none focus:ring-1 focus:ring-gray-500' color='gray'>
+                        <Button className='mt-1 rounded-full bg-white hover:bg-white focus:outline-none focus:ring-1 focus:ring-gray-500' color='gray'>
                             <IoIosMoon className='text-black'/>
                         </Button>
 
@@ -37,7 +37,7 @@ const Header = () => {
                     <div className='signIn'>
                         <Link to='/sign-in'>
                             <Button className='bg-gradient-to-r from-purple-400 via-pink-400 to-violet-400 hover:bg-gradient-to-r hover:from-purple-500 hover:via-pink-500 hover:to-violet-400 focus:outline-none focus:ring-1 focus:ring-gray-500'>
-                                SignIn
+                               <span className='font-bold text-sm lg:text-lg'> SignIn</span>
                             </Button>
                         </Link>
                     </div>
