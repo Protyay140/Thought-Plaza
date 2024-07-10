@@ -24,3 +24,13 @@ app.use('/api/auth',authRoutes);
 app.listen(port,()=>{
     console.log('app is running on port ',port);
 })
+
+app.use((err,req,res,next)=>{
+    const statuscode = err.status || 500;
+    const msg = err.message || "internal server error";
+    return res.status(statuscode).json({error:{
+        success : false,
+        statuscode : statuscode,
+        message:msg,
+    }});
+})

@@ -3,7 +3,7 @@ const User = require('../models/user_model');
 const router = express.Router();
 const bcryptjs = require('bcryptjs');
 
-router.post('/signup',async (req,res)=>{
+router.post('/signup',async (req,res,next)=>{
     
     try {
         const {username,email,password} = req.body;
@@ -23,7 +23,7 @@ router.post('/signup',async (req,res)=>{
 
         res.status(200).json({msg : "signup successful"});
     } catch (err) {
-        console.log("signup failed : ",err);
+        next(err);
     }
 })
 
