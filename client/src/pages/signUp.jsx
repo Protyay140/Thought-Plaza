@@ -1,4 +1,4 @@
-import { Alert, Button, Label, TextInput } from 'flowbite-react'
+import { Alert, Button, Label, Spinner, TextInput } from 'flowbite-react'
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { CiUser } from "react-icons/ci";
@@ -8,6 +8,7 @@ import { toast } from 'react-toastify';
 
 const SignUp = () => {
   const [errorMessage, seterrorMessage] = useState(null);
+  const [loading, setLoading] = useState(false);
   const [formData, setformData] = useState({
     username: "",
     email: "",
@@ -27,11 +28,15 @@ const SignUp = () => {
     //  alert('hi')
     //  console.log("formdata : ",formData);
     try {
-
-      if(!formData.username || !formData.email ||!formData.password){
+      
+      if (!formData.username || !formData.email || !formData.password) {
+        
         return seterrorMessage("all fields are required ...")
       }
 
+
+      seterrorMessage(null);
+      setLoading(true);
       const data = await fetch('http://localhost:3000/api/auth/signup', {
         method: 'POST',
         headers: {
@@ -41,25 +46,30 @@ const SignUp = () => {
       })
 
       const res = await data.json();
-      //  console.log('response : ',res);
-      if (res.error.success === false) {
-        console.log("failed response :",res.err)
-        seterrorMessage(res.error.message);
-      } else {
-        toast.success("registration successful ...",{
-          position :"top-center"
-        })
-        setformData({
-          username: "",
-          email: "",
-          password: ""
-        });
+       console.log('response : ',res);
+      setLoading(false);
+      if (res.success === false) {
+        console.log("failed response :", res.message)
+       
+        return seterrorMessage(res.message);
       }
+
+      toast.success("registration successful ...", {
+        position: "top-center"
+      })
+
+      setformData({
+        username: "",
+        email: "",
+        password: ""
+      });
 
       // console.log('response : ', res);
 
     } catch (err) {
       console.log('error in submiting signup form : ', err);
+      setLoading(false);
+      seterrorMessage(err);
     }
   }
 
@@ -77,7 +87,7 @@ const SignUp = () => {
         <div className='right mt-10 md:mt-0 md:w-1/3'>
           <form >
             <div className='flex gap-2 mb-2'>
-              <CiUser />
+              <CiUser className='mt-1'/>
               <Label value='Username' />
             </div>
             <TextInput
@@ -90,7 +100,7 @@ const SignUp = () => {
               onChange={handleChange}
             />
             <div className='flex gap-2 mt-2 mb-2'>
-              <MdEmail />
+              <MdEmail className='mt-1'/>
               <Label value='Email' />
             </div>
             <TextInput
@@ -103,7 +113,7 @@ const SignUp = () => {
               onChange={handleChange}
             />
             <div className='flex gap-2 mt-2 mb-2'>
-              <RiLockPasswordFill />
+              <RiLockPasswordFill className='mt-1'/>
               <Label value='Password' />
             </div>
             <TextInput
@@ -122,8 +132,20 @@ const SignUp = () => {
             </button>
           </div> */}
 
-          <button onClick={handleSubmit} className='mt-5 mb-3 border p-2 rounded-lg font-bold text-center w-full text-white py-3 px-3 bg-gradient-to-r from-purple-500 via-pink-500 to-violet-500 hover:bg-gradient-to-r hover:from-purple-600 hover:via-pink-600 hover:to-violet-600 focus:outline-none focus:ring-1 focus:ring-gray-500'>
-            Signup
+          <button type='submit' disabled={loading} onClick={handleSubmit} className='mt-5 mb-3 border p-2 rounded-lg font-bold text-center w-full text-white py-3 px-3 bg-gradient-to-r from-purple-500 via-pink-500 to-violet-500 hover:bg-gradient-to-r hover:from-purple-600 hover:via-pink-600 hover:to-violet-600 focus:outline-none focus:ring-1 focus:ring-gray-500'>
+
+            {
+              loading === true ? (
+                <>
+                  <Spinner />
+                  <span className='ml-2'>Loading...</span>
+                </>
+              ) :
+                (
+                  'Signup'
+                )
+            }
+
           </button>
 
           <p>
