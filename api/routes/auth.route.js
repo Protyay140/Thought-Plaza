@@ -9,7 +9,9 @@ router.post('/signup',async (req,res,next)=>{
         const {username,email,password} = req.body;
         
 
-        console.log("req : ",req.body);
+        console.log("username : ",username);
+        console.log("email : ",email);
+        console.log("password : ",password);
         if(!username || !email || !password){
            return res.status(500).json({message : "all fields are required ..."});    
         }
@@ -18,10 +20,10 @@ router.post('/signup',async (req,res,next)=>{
         const newUser = await User.create({
             username,
             email,
-            password : hashPassword
+            password : hashPassword 
         })
 
-        res.status(200).json({msg : "signup successful"});
+        res.status(200).json({msg : "signup successful", success:true});
     } catch (err) {
         next(err);
     }

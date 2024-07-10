@@ -9,7 +9,7 @@ const Header = () => {
         <div>
             <Navbar className='border-b-2'>
                 <div className='logo border text-sm sm:text-lg dark:text-white'>
-                    <Link to={'/'} className='text-white font-semibold rounded-lg py-1 px-2 bg-gradient-to-r from-purple-400 via-pink-400 to-violet-400'>Blog-Spot</Link>
+                    <Link to={'/'} className='text-white font-semibold rounded-lg py-1 px-2 bg-gradient-to-r from-purple-500 via-pink-500 to-violet-500'>Blog-Spot</Link>
                 </div>
                 <div className='search text-red-700 hidden lg:inline' >
                     <form action="" className=''>
@@ -36,7 +36,7 @@ const Header = () => {
                     </div>
                     <div className='signIn'>
                         <Link to='/sign-in'>
-                            <Button className='bg-gradient-to-r from-purple-400 via-pink-400 to-violet-400 hover:bg-gradient-to-r hover:from-purple-500 hover:via-pink-500 hover:to-violet-400 focus:outline-none focus:ring-1 focus:ring-gray-500'>
+                            <Button className='bg-gradient-to-r from-purple-500 via-pink-500 to-violet-500 hover:bg-gradient-to-r hover:from-purple-600 hover:via-pink-600 hover:to-violet-600 focus:outline-none focus:ring-1 focus:ring-gray-500'>
                                <span className='font-bold text-sm lg:text-lg'> SignIn</span>
                             </Button>
                         </Link>

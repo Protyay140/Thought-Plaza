@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const app = express();
 const dotenv = require('dotenv');
 const { default: mongoose } = require('mongoose');
@@ -6,6 +7,8 @@ const userRoutes = require('./routes/user.route.js');
 const authRoutes = require('./routes/auth.route.js');
 dotenv.config();
 const port = 3000;
+
+app.use(cors());
 
 app.use(express.json());
 
@@ -32,5 +35,6 @@ app.use((err,req,res,next)=>{
         success : false,
         statuscode : statuscode,
         message:msg,
-    }});
+    },
+    err});
 })
