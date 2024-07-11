@@ -1,12 +1,13 @@
 import { Alert, Button, Label, Spinner, TextInput } from 'flowbite-react'
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { CiUser } from "react-icons/ci";
 import { MdEmail } from "react-icons/md";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { toast } from 'react-toastify';
 
 const SignUp = () => {
+  const navigate = useNavigate();
   const [errorMessage, seterrorMessage] = useState(null);
   const [loading, setLoading] = useState(false);
   const [formData, setformData] = useState({
@@ -53,16 +54,20 @@ const SignUp = () => {
        
         return seterrorMessage(res.message);
       }
-
-      toast.success("registration successful ...", {
-        position: "top-center"
-      })
-
       setformData({
         username: "",
         email: "",
         password: ""
       });
+
+      if(data.ok){
+        navigate('/sign-in');
+      }
+      toast.success("registration successful ...", {
+        position: "top-center"
+      })
+
+     
 
       // console.log('response : ', res);
 
@@ -95,7 +100,7 @@ const SignUp = () => {
               id='username'
               name='username'
               value={formData.username}
-              placeholder='username'
+              placeholder='pro140'
 
               onChange={handleChange}
             />
@@ -108,7 +113,7 @@ const SignUp = () => {
               id='email'
               name='email'
               value={formData.email}
-              placeholder='email'
+              placeholder='pro@gmail.com'
 
               onChange={handleChange}
             />
@@ -121,7 +126,7 @@ const SignUp = () => {
               id='password'
               name='password'
               value={formData.password}
-              placeholder='password'
+              placeholder='••••••••••••'
 
               onChange={handleChange}
             />
