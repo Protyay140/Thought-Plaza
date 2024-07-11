@@ -62,4 +62,40 @@ router.post('/signin',async (req,res,next)=>{
     }
 })
 
+router.post('/google',async(req,res,next)=>{
+    const {name,email,photoURL} = req.body;
+    try {
+        const user = await User.findOne({email});
+        if(user){
+            const token = jwt.sign(
+                {id : user._id} , process.env.JWT_SECRET
+            )
+
+            const {password:pass , ...rest} = user._doc;
+            return res.status(200).cookie('auth_token',token,{httpOnly : true}).json({success:true , message:"signin successfull", userData:rest})
+        }else{
+            const genPassword = Math.random().toString(36).slice(-8) + Math.random().toString(36).slice(-8);
+            const hashPassword = bcryptjs.hashSync(genPassword,10);
+
+            const newUser = await User.create({
+                username : name.toLowerCase().split(' ').join('') + Math.random().toString(-4).slice(-3),
+                email : email,
+                password : hashPassword,
+                photoURL : phoroURL
+
+            })
+
+            const token = jwt.sign(
+                {id : newUser._id} , process.env.JWT_SECRET
+            )
+            const {password:pass , ...rest} = user._doc;
+
+            return res.status(200).cookie('auth_token',token,{httpOnly : true}).json({success:true , message:"signin successfull", userData:rest})
+        }
+    } catch (err) {
+        next(err);
+    }
+})
+
+
 module.exports = router;

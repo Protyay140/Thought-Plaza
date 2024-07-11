@@ -5,6 +5,7 @@ import { CiUser } from "react-icons/ci";
 import { MdEmail } from "react-icons/md";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { toast } from 'react-toastify';
+import Oauth from '../components/Oauth';
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -137,7 +138,7 @@ const SignUp = () => {
             </button>
           </div> */}
 
-          <button type='submit' disabled={loading} onClick={handleSubmit} className='mt-5 mb-3 border p-2 rounded-lg font-bold text-center w-full text-white py-3 px-3 bg-gradient-to-r from-purple-500 via-pink-500 to-violet-500 hover:bg-gradient-to-r hover:from-purple-600 hover:via-pink-600 hover:to-violet-600 focus:outline-none focus:ring-1 focus:ring-gray-500'>
+          <button type='submit' disabled={loading} onClick={handleSubmit} className='mt-5 mb-3 border rounded-lg font-bold text-center w-full text-white py-2 px-3 bg-gradient-to-r from-purple-500 via-pink-500 to-violet-500 hover:bg-gradient-to-r hover:from-purple-600 hover:via-pink-600 hover:to-violet-600 focus:outline-none focus:ring-1 focus:ring-gray-500'>
 
             {
               loading === true ? (
@@ -152,11 +153,12 @@ const SignUp = () => {
             }
 
           </button>
-
+          <Oauth />
           <p>
             already have an account ? <button className='text-blue-600 hover:text-blue-800'>
               <Link to='/sign-in'> SignIn </Link></button>
           </p>
+         
           <div>
             {errorMessage &&
               <Alert color='red' className='mt-2'>
