@@ -78,17 +78,17 @@ router.post('/google',async(req,res,next)=>{
             const hashPassword = bcryptjs.hashSync(genPassword,10);
 
             const newUser = await User.create({
-                username : name.toLowerCase().split(' ').join('') + Math.random().toString(-4).slice(-3),
+                username : name.toLowerCase().split(' ').join('') + Math.random().toString(9).slice(-3),
                 email : email,
                 password : hashPassword,
-                photoURL : phoroURL
+                profileImage : photoURL
 
             })
 
             const token = jwt.sign(
                 {id : newUser._id} , process.env.JWT_SECRET
             )
-            const {password:pass , ...rest} = user._doc;
+            const {password:pass , ...rest} = newUser._doc;
 
             return res.status(200).cookie('auth_token',token,{httpOnly : true}).json({success:true , message:"signin successfull", userData:rest})
         }
