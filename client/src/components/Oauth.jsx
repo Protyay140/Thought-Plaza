@@ -39,7 +39,7 @@ const Oauth = () => {
 
     return (
         <div className=''>
-            <button onClick={handleGoogleClick} className=' mt-2 mb-3 border rounded-lg  text-center w-full py-2 px-3 border-violet-500 hover:bg-violet-100'>
+            <button onClick={handleGoogleClick} className='dark:hover:bg-[#4a044e] dark:text-white mt-2 mb-3 border rounded-lg  text-center w-full py-2 px-3 border-violet-500 hover:bg-violet-100'>
                 <div className='flex gap-3 justify-center'>
                     <div className='mt-1'>
                         <FcGoogle />

@@ -151,7 +151,7 @@ const SignIn = () => {
           <Oauth />
           <p>
             doesn't have an account ? <button className='text-blue-600 hover:text-blue-800'>
-              <Link to='/sign-up'> SignUp </Link></button>
+              <Link className='underline dark:hover:text-blue-500 dark:text-blue-400' to='/sign-up'> SignUp </Link></button>
           </p>
           <div>
             {errorMessage &&

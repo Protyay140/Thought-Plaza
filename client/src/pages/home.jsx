@@ -7,7 +7,7 @@ const Home = () => {
     console.log('currentUser : ',currentUser);
   })
   return (
-    <div>welcome to home mr. {currentUser?.username}</div>
+    <div className=''>welcome to home mr. {currentUser?.username}</div>
   )
 }
 

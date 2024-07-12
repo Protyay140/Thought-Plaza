@@ -3,14 +3,19 @@ import { Avatar, Button, Dropdown, Navbar, TextInput } from "flowbite-react";
 import { Link, useLocation } from 'react-router-dom';
 import { CiSearch } from "react-icons/ci";
 import { IoIosMoon } from "react-icons/io";
-import { useSelector } from 'react-redux';
+import { FaRegLightbulb } from "react-icons/fa6";
+import { useDispatch, useSelector } from 'react-redux';
+import { toggleTheme } from '../redux/theme/themeSlice';
 const Header = () => {
     const path = useLocation().pathname;
+    const { theme } = useSelector(state => state.theme);
+    const dispatch = useDispatch();
+    console.log('theme : ', theme);
     const { currentUser } = useSelector(state => state.user);
     return (
         <div>
-            <Navbar className='border-b-2'>
-                <div className='logo border text-sm sm:text-lg dark:text-white'>
+            <Navbar className='border-b-2 '>
+                <div className='logo text-sm sm:text-lg dark:text-white'>
                     <Link to={'/'} className='text-white font-semibold rounded-lg py-1 px-2 bg-gradient-to-r from-purple-500 via-pink-500 to-violet-500'>Blog-Spot</Link>
                 </div>
                 <div className='search text-red-700 hidden lg:inline' >
@@ -25,26 +30,36 @@ const Header = () => {
                     </form>
                 </div>
                 <div>
-                    <Button className=' lg:hidden rounded-full hover:bg-red-400 focus:outline-none focus:ring-1 focus:ring-gray-500' color='gray'>
+                    <Button className='dark:bg-white lg:hidden rounded-full hover:bg-red-400 focus:outline-none focus:ring-1 focus:ring-gray-500' color='gray'>
                         <CiSearch className='text-black' />
                     </Button>
                 </div>
                 <div className='flex gap-2 md:order-2'>
                     <div className='theme'>
-                        <Button className='mt-1 rounded-full bg-white hover:bg-white focus:outline-none focus:ring-1 focus:ring-gray-500' color='gray'>
-                            <IoIosMoon className='text-black' />
+                        <Button onClick={() => {
+                            dispatch(toggleTheme());
+                        }} className='mt-1 rounded-full dark:bg-white dark:hover:bg-gray-100 bg-white focus:outline-none focus:ring-1 focus:ring-gray-500' color='gray'>
+                            {
+                                theme == 'dark' ? <>
+                                    <FaRegLightbulb className='text-black ' />
+                                </> : <>
+                                    <IoIosMoon className='text-black ' />
+                                </>
+                            }
+
                         </Button>
 
                     </div>
                     <div className='signIn'>
                         {
                             currentUser ? <>
-                                <Dropdown 
-                                    arrowIcon = {false}
+                                <Dropdown
+                                    arrowIcon={false}
                                     inline
-                                    label = {
-                                        <Avatar 
+                                    label={
+                                        <Avatar
                                             img={currentUser.profileImage}
+                                            rounded
                                         />
                                     }
                                 >
@@ -55,9 +70,9 @@ const Header = () => {
                             </> :
                                 <>
                                     <Link to='/sign-in'>
-                                        <Button className='bg-gradient-to-r from-purple-500 via-pink-500 to-violet-500 hover:bg-gradient-to-r hover:from-purple-600 hover:via-pink-600 hover:to-violet-600 focus:outline-none focus:ring-1 focus:ring-gray-500'>
-                                            <span className='font-bold text-sm lg:text-lg'> SignIn</span>
-                                        </Button>
+                                        <button className='p-2 text-white rounded-full px-3 bg-gradient-to-r from-purple-500 via-pink-500 to-violet-500 hover:bg-gradient-to-r hover:from-purple-600 hover:via-pink-600 hover:to-violet-600 focus:outline-none focus:ring-1 focus:ring-gray-500'>
+                                            <span className='font-semibold text-sm lg:text-lg'> SignIn</span>
+                                        </button>
                                     </Link>
                                 </>
                         }
