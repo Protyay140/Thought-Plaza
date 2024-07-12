@@ -51,6 +51,7 @@ const SignIn = () => {
         headers: {
           'Content-Type': 'application/json'
         },
+        credentials: 'include',
         body: JSON.stringify(formData)
       })
 
@@ -69,6 +70,9 @@ const SignIn = () => {
       });
       if (data.ok) {
         navigate('/');
+        toast.success('successfully signin',{
+          position : "top-center"
+        })
         dispatch(signInSuccess(res.userData));
       }
 
