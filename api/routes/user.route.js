@@ -46,4 +46,13 @@ router.delete('/delete/:userId',verifyUser,async(req,res,next)=>{
     }
 })
 
+
+router.post('/signout',async(req,res,next)=>{
+    try {
+        res.clearCookie('auth_token').status(200).json({success : true,message : "successfully signout"});
+    } catch (err) {
+        next(err);
+    }
+})
+
 module.exports = router;

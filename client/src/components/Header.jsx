@@ -1,17 +1,45 @@
 import React from 'react'
 import { Avatar, Button, Dropdown, Navbar, TextInput } from "flowbite-react";
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { CiSearch } from "react-icons/ci";
 import { IoIosMoon } from "react-icons/io";
 import { FaRegLightbulb } from "react-icons/fa6";
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleTheme } from '../redux/theme/themeSlice';
+import { toast } from 'react-toastify';
+import { signOutSuccess } from '../redux/user/userSlice';
 const Header = () => {
     const path = useLocation().pathname;
     const { theme } = useSelector(state => state.theme);
     const dispatch = useDispatch();
     console.log('theme : ', theme);
     const { currentUser } = useSelector(state => state.user);
+    const navigate = useNavigate();
+    const handleSignOut = async (req, res) => {
+        try {
+            const data = await fetch('http://localhost:3000/api/user/signout', {
+                method: 'POST',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+
+            const res = await data.json();
+            if (data.ok) {
+                toast.success('signout successful ', {
+                    position: "top-center"
+                })
+
+                dispatch(signOutSuccess());
+                navigate('/sign-in');
+
+            }
+        } catch (err) {
+            console.log('error in sign out : ', err);
+        }
+    }
+
     return (
         <div>
             <Navbar className='border-b-2 '>
@@ -64,8 +92,13 @@ const Header = () => {
                                     }
                                 >
                                     <Dropdown.Item >{currentUser.email}</Dropdown.Item>
-                                    <Dropdown.Item >profile</Dropdown.Item>
-                                    <Dropdown.Item >sign-out</Dropdown.Item>
+                                    <Link to='/dashboard?tab=profile'>
+                                        <Dropdown.Item >
+                                        profile
+                                        </Dropdown.Item>
+                                    </Link>
+
+                                    <Dropdown.Item onClick={handleSignOut}>sign-out</Dropdown.Item>
                                 </Dropdown>
                             </> :
                                 <>

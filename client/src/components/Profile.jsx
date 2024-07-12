@@ -1,4 +1,4 @@
-import { Label, TextInput } from 'flowbite-react';
+import { Button, Label, Modal, TextInput } from 'flowbite-react';
 import React, { useEffect, useRef, useState } from 'react'
 import { CiUser } from 'react-icons/ci';
 import { MdEmail } from 'react-icons/md';
@@ -8,16 +8,21 @@ import { app } from '../../firebase';
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage'
 import { updateFailure, updateStart, updateSuccess } from '../redux/user/userSlice';
 import { toast } from 'react-toastify';
+import { HiOutlineExclamationCircle } from "react-icons/hi"
+import { useNavigate } from 'react-router-dom';
 
 const Profile = () => {
     const pickImageFile = useRef();
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({});
     const [progresspercent, setProgresspercent] = useState(0);
-    const { currentUser ,error , loading } = useSelector(state => state.user);
-    const [imageLoading,setImageLoading] = useState(false);
+    const { currentUser, error, loading } = useSelector(state => state.user);
+    const [imageLoading, setImageLoading] = useState(false);
     const [imageFileUrl, setImageFileUrl] = useState();
     const [imageFile, setImageFile] = useState();
+
+    const [openModal, setOpenModal] = useState(false);
     const handleFile = (e) => {
         console.log('file : ', e.target.files[0]);
         const file = e.target.files[0];
@@ -89,15 +94,15 @@ const Profile = () => {
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    credentials : 'include',
+                    credentials: 'include',
                     body: JSON.stringify(formData)
                 })
 
                 const res = await data.json();
                 if (data.ok) {
                     dispatch(updateSuccess(res.userData));
-                    toast.success('successfully updated ...',{
-                        position : "top-center"
+                    toast.success('successfully updated ...', {
+                        position: "top-center"
                     })
                 } else {
                     dispatch(updateFailure("update failure !!!"));
@@ -107,6 +112,30 @@ const Profile = () => {
             dispatch(updateFailure(err));
         }
     }
+
+    const handleDelete = async () => {
+        setOpenModal(false);
+        try {
+            const res = await fetch(`http://localhost:3000/api/user/delete/${currentUser._id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                credentials: 'include',
+            })
+
+            const data = await res.json();
+            if(res.ok){
+                toast.success("account deleted successfully",{
+                    position : "top-center"
+                })
+                navigate('/sign-in');
+            }
+        } catch (err) {
+            console.log("error in deleting user : ", err);
+        }
+    }
+
     return (
         <div className='flex gap-2 mt-3 flex-col '>
             <div className='hidden'> <input type="file" onChange={handleFile} ref={pickImageFile} /></div>
@@ -162,14 +191,33 @@ const Profile = () => {
                 </form>
                 <div className='container flex justify-between mt-4 mb-3'>
                     <div className='update'>
-                        <button disabled={loading || imageLoading} onClick={updateHandler} className={`font-bold p-1 border rounded-full px-4  hover:text-white hover:bg-green-400 ${imageLoading || loading ? 'cursor-not-allowed':''}`}>
+                        <button disabled={loading || imageLoading} onClick={updateHandler} className={`font-bold p-1 border rounded-full px-4  hover:text-white hover:bg-green-400 ${imageLoading || loading ? 'cursor-not-allowed' : ''}`}>
                             update
                         </button>
                     </div>
                     <div className="delete">
-                        <button className='font-bold p-1 border rounded-full px-4 hover:text-white hover:bg-red-600'>
-                            delete
-                        </button>
+                        <button onClick={() => setOpenModal(true)} className='font-bold p-1 border rounded-full px-4 hover:text-white hover:bg-red-600'>
+                            delete </button>
+                        <Modal show={openModal} size="md" onClose={() => setOpenModal(false)} popup>
+                            <Modal.Header />
+                            <Modal.Body>
+                                <div className="text-center">
+                                    <HiOutlineExclamationCircle className="mx-auto mb-4 h-14 w-14 text-gray-400 dark:text-gray-200" />
+                                    <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+                                        Are you sure you want to delete?
+                                    </h3>
+                                    <div className="flex justify-center gap-4">
+                                        <Button color="failure" onClick={handleDelete}>
+                                            {"Yes, I'm sure"}
+                                        </Button>
+                                        <Button color="gray" onClick={() => setOpenModal(false)}>
+                                            No, cancel
+                                        </Button>
+                                    </div>
+                                </div>
+                            </Modal.Body>
+                        </Modal>
+
                     </div>
                 </div>
             </div>
