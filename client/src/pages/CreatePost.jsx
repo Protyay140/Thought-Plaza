@@ -42,7 +42,7 @@ const CreatePost = () => {
                 <div className='mt-4'>
                     <ReactQuill className='h-28 ' theme='snow' />
                 </div>
-                <div className='text-center mt-20'>
+                <div className='text-center mt-20 md:mt-14'>
                     <button className='mb-2 border p-2 rounded-xl hover:text-white font-bold px-3 hover:bg-gradient-to-r hover:from-purple-500 hover:via-pink-500 hover:to-violet-500'>
                         Publish Post
                     </button>

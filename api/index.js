@@ -5,6 +5,7 @@ const dotenv = require('dotenv');
 const { default: mongoose } = require('mongoose');
 const userRoutes = require('./routes/user.route.js');
 const authRoutes = require('./routes/auth.route.js');
+const postRoutes = require('./routes/postRoute.js');
 const cookie = require('cookie-parser');
 dotenv.config();
 const port = 3000;
@@ -29,6 +30,7 @@ mongoose.connect(
 
 app.use('/api/user', userRoutes);
 app.use('/api/auth', authRoutes);
+app.use('/api/post',postRoutes);
 
 app.listen(port, () => {
     console.log('app is running on port ', port);

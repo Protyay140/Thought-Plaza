@@ -5,7 +5,7 @@ const verifyUser = (req,res,next)=>{
     // console.log('request cookie : ',req.cookies);
     if(!token){
         // console.log("token : ",token);
-        return res.status(401).json({success:false,message : "hello unAutherized"});
+        return res.status(401).json({success:false,message : "unAutherized"});
     }else{
         jwt.verify(token,process.env.JWT_SECRET,(err,user)=>{
             if(err){

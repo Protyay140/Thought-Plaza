@@ -186,7 +186,7 @@ const Profile = () => {
                         // value={formData.password}
                         placeholder='••••••••••••'
 
-                    // onChange={handleChange}
+                        onChange={handleChange}
                     />
                 </form>
                 <div className='container flex justify-between mt-4 mb-3'>
