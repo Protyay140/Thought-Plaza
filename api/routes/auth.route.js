@@ -50,7 +50,7 @@ router.post('/signin', async (req, res, next) => {
         }
 
         const token = jwt.sign(
-            { id: checkUser._id }, process.env.JWT_SECRET
+            { id: checkUser._id , isAdmin : checkUser.isAdmin }, process.env.JWT_SECRET
         )
 
         // seperating the password from the rest of the information of the user .....
@@ -74,7 +74,7 @@ router.post('/google', async (req, res, next) => {
         const user = await User.findOne({ email });
         if (user) {
             const token = jwt.sign(
-                { id: user._id }, process.env.JWT_SECRET
+                { id: user._id , isAdmin : user.isAdmin }, process.env.JWT_SECRET
             )
 
             const { password: pass, ...rest } = user._doc;
@@ -92,7 +92,7 @@ router.post('/google', async (req, res, next) => {
             })
 
             const token = jwt.sign(
-                { id: newUser._id }, process.env.JWT_SECRET
+                { id: newUser._id  , isAdmin : newUser.isAdmin}, process.env.JWT_SECRET
             )
             const { password: pass, ...rest } = newUser._doc;
 

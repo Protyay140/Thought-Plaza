@@ -9,7 +9,7 @@ import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/
 import { updateFailure, updateStart, updateSuccess } from '../redux/user/userSlice';
 import { toast } from 'react-toastify';
 import { HiOutlineExclamationCircle } from "react-icons/hi"
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Profile = () => {
     const pickImageFile = useRef();
@@ -125,9 +125,9 @@ const Profile = () => {
             })
 
             const data = await res.json();
-            if(res.ok){
-                toast.success("account deleted successfully",{
-                    position : "top-center"
+            if (res.ok) {
+                toast.success("account deleted successfully", {
+                    position: "top-center"
                 })
                 navigate('/sign-in');
             }
@@ -219,6 +219,15 @@ const Profile = () => {
                         </Modal>
 
                     </div>
+                </div>
+                <div className='text-center'>
+                    {
+                        currentUser.isAdmin && !loading && <>
+                            <Link to={`/create-post`}>
+                                <button className='border font-bold p-2 px-4 rounded-full hover:text-white hover:bg-gradient-to-r hover:from-purple-500 hover:via-pink-500 hover:to-violet-500'>Create Your New Post</button>
+                            </Link>
+                        </>
+                    }
                 </div>
             </div>
 

@@ -9,6 +9,7 @@ import About from './pages/about'
 import Header from './components/Header'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import CreatePost from './pages/CreatePost'
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
         <Route path='/sign-up' element={<SignUp />} /> 
         <Route path="/dashboard" element={<Dashboard />} /> 
         <Route path='/project' element={<Project />} />
+        <Route path='/create-post' element={<CreatePost />} />
       </Routes>
     </BrowserRouter>
   )
