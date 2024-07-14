@@ -92,9 +92,18 @@ const Header = () => {
                                     }
                                 >
                                     <Dropdown.Item >{currentUser.email}</Dropdown.Item>
+                                    {
+                                        currentUser.isAdmin && <>
+                                            <Link to='/dashboard?tab=profile'>
+                                                <Dropdown.Item >
+                                                    dashboard
+                                                </Dropdown.Item>
+                                            </Link>
+                                        </>
+                                    }
                                     <Link to='/dashboard?tab=profile'>
                                         <Dropdown.Item >
-                                        profile
+                                            profile
                                         </Dropdown.Item>
                                     </Link>
 

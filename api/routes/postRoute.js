@@ -3,7 +3,7 @@ const Post = require('../models/post_model');
 const verifyUser = require('../middleware/verifyUser');
 const router = express.Router();
 
-router.post('/create-post',async(req,res,next)=>{
+router.post('/create-post', async (req, res, next) => {
     try {
 
         // if(req.user.isAdmin==false){
@@ -14,10 +14,46 @@ router.post('/create-post',async(req,res,next)=>{
             req.body
         )
 
-        res.status(200).json({success : true,message : "Post created successfully",postInfo : newPost});
+        res.status(200).json({ success: true, message: "Post created successfully", postInfo: newPost });
     } catch (err) {
         next(err);
     }
 })
 
-module.exports = router ; 
+router.post('/getPosts', async (req, res) => {
+    try {
+        const limit = req.query.limit || 9;
+        const startFrom = req.query.startFrom || 0;
+        const order = req.query.order == 'asc' ? 1 : -1;
+
+        const posts = await Post.find({
+            ...(req.query.userId && { userId: req.query.userId }),
+            ...(req.query.title && { title: req.query.title }),
+            ...(req.query.category && { category: req.query.category }),
+            ...(req.query.postId && { _id: req.query.postId }),
+            ...(req.query.searchParam && {
+                $or: [
+                    { title: { $regex: req.query.searchParam, $options: 'i' } },
+                    { category: { $regex: req.query.searchParam, $options: 'i' } }
+                ]
+            })
+        })
+            .sort({
+                updatedAt: order
+            }).limit(limit).skip(startFrom);
+
+        
+        const totalPosts = await Post.countDocuments();
+
+        res.status(200).json({success : true , message : "get posts successfully" , 
+            postInfo : {
+                posts,
+                totalPosts
+            }
+        })
+    } catch (err) {
+        next(err);
+    }
+})
+
+module.exports = router; 

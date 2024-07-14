@@ -55,6 +55,17 @@ const DashSidebar = () => {
                         </Sidebar.Item>
                     </Link>
                 </Sidebar.ItemGroup>
+                {
+                    currentUser.isAdmin && <>
+                        <Sidebar.ItemGroup>
+                            <Link to='/dashboard?tab=posts'>
+                                <Sidebar.Item as='div' active={tab == 'posts'} icon={CgProfile} className='cursor-pointer text-center'>
+                                    User Posts
+                                </Sidebar.Item>
+                            </Link>
+                        </Sidebar.ItemGroup>
+                    </>
+                }
                 <Sidebar.ItemGroup>
                     <Sidebar.Item as='div' onClick={handleSignOut} active={tab == 'signout'} icon={GoSignOut} className='cursor-pointer text-center'>
                         Sign-Out
