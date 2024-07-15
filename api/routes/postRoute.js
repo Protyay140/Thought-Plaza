@@ -20,14 +20,14 @@ router.post('/create-post', async (req, res, next) => {
     }
 })
 
-router.post('/getPosts', async (req, res) => {
+router.get('/getPosts', async (req, res,next) => {
     try {
         const limit = req.query.limit || 9;
         const startFrom = req.query.startFrom || 0;
         const order = req.query.order == 'asc' ? 1 : -1;
 
         const posts = await Post.find({
-            ...(req.query.userId && { userId: req.query.userId }),
+            ...(req.query.userId && { user: req.query.userId }),
             ...(req.query.title && { title: req.query.title }),
             ...(req.query.category && { category: req.query.category }),
             ...(req.query.postId && { _id: req.query.postId }),
@@ -51,6 +51,18 @@ router.post('/getPosts', async (req, res) => {
                 totalPosts
             }
         })
+    } catch (err) {
+        next(err);
+    }
+})
+
+router.delete('/delete-post',async(req,res,next)=>{
+    try {
+        if(!req.query.postId){
+            return res.status(200).json({ success: false, message: "post not selected !!!"});
+        }
+        const data = await Post.findByIdAndDelete({_id : req.query.postId});
+        return res.status(200).json({ success: true, message: "post deleted successfully"});
     } catch (err) {
         next(err);
     }
