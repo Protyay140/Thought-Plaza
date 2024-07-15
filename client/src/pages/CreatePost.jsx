@@ -78,7 +78,7 @@ const CreatePost = () => {
                     position: "top-center"
                 })
             }else{
-                toast.success('post is published successfully !!!', {
+                toast.success('post is published successfully', {
                     position: "top-center"
                 })
                 console.log("resoponse : ",res);
@@ -111,10 +111,13 @@ const CreatePost = () => {
                             setFormData({ ...formData, category: e.target.value });
                         }}
                     >
-                        <option value="javascript">choose your category</option>
-                        <option value="javascript">javascript</option>
-                        <option value="javascript">react</option>
-                        <option value="javascript">nextjs</option>
+                        <option value="">choose your category</option>
+                        <option value="Food">Food</option>
+                        <option value="Technology">Technology</option>
+                        <option value="Movie">Movie</option>
+                        <option value="Education">Education</option>
+                        <option value="Politics">Politics</option>
+                        <option value="Others">Others</option>
                     </Select>
                 </div>
 

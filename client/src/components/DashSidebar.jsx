@@ -60,7 +60,7 @@ const DashSidebar = () => {
                         <Sidebar.ItemGroup>
                             <Link to='/dashboard?tab=posts'>
                                 <Sidebar.Item as='div' active={tab == 'posts'} icon={CgProfile} className='cursor-pointer text-center'>
-                                    User Posts
+                                    Posts
                                 </Sidebar.Item>
                             </Link>
                         </Sidebar.ItemGroup>
