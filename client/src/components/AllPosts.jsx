@@ -1,4 +1,4 @@
-import { Button, Modal, Table } from 'flowbite-react';
+import { Button, Modal, Spinner, Table } from 'flowbite-react';
 import React, { useEffect, useState } from 'react'
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
 import { useSelector } from 'react-redux'
@@ -199,7 +199,9 @@ const AllPosts = () => {
           </div>
         </> :
           <>
-            <p className='text-center'>Loading .....</p>
+            <div className='min-h-screen flex justify-center items-center'>
+              <Spinner size="xl" />
+            </div>
           </>
       }
 

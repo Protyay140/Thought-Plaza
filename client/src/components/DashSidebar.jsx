@@ -6,6 +6,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { signOutSuccess } from '../redux/user/userSlice';
+import { MdCompost } from "react-icons/md";
+import { FaUsers } from "react-icons/fa6";
 
 const DashSidebar = () => {
     const [tab, setTab] = useState();
@@ -58,8 +60,15 @@ const DashSidebar = () => {
                 {
                     currentUser.isAdmin && <>
                         <Sidebar.ItemGroup>
+                            <Link to='/dashboard?tab=users'>
+                                <Sidebar.Item as='div' active={tab == 'users'} icon={FaUsers} className='cursor-pointer text-center'>
+                                    Users
+                                </Sidebar.Item>
+                            </Link>
+                        </Sidebar.ItemGroup>
+                        <Sidebar.ItemGroup>
                             <Link to='/dashboard?tab=posts'>
-                                <Sidebar.Item as='div' active={tab == 'posts'} icon={CgProfile} className='cursor-pointer text-center'>
+                                <Sidebar.Item as='div' active={tab == 'posts'} icon={MdCompost} className='cursor-pointer text-center'>
                                     Posts
                                 </Sidebar.Item>
                             </Link>

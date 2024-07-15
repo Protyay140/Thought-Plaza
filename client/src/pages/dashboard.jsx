@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import Profile from '../components/Profile';
 import DashSidebar from '../components/DashSidebar';
 import AllPosts from '../components/AllPosts';
+import AllUsers from '../components/AllUsers';
 
 const Dashboard = () => {
   const {currentUser} = useSelector(state=> state.user);
@@ -29,6 +30,9 @@ const Dashboard = () => {
         <div className='main-content w-full p-2'>
           {
             tab=='profile' && <Profile />
+          }
+          {
+            tab == 'users' && <AllUsers />
           }
           {
             tab == 'posts' && <AllPosts />
