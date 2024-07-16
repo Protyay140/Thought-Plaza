@@ -11,10 +11,12 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import CreatePost from './pages/CreatePost'
 import PostPage from './pages/PostPage'
+import TopScrolling from './components/TopScrolling'
 
 const App = () => {
   return (
     <BrowserRouter>
+      <TopScrolling />
       <Header />
       <ToastContainer />
       <Routes>

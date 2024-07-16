@@ -104,4 +104,14 @@ router.get('/getUsers', async (req, res, next) => {
     }
 })
 
+
+router.get('/getUser/:userId',async(req,res,next)=>{
+    try {
+        const user = await User.findOne({_id:req.params.userId});
+        res.status(200).json({success:true,message:'user get successfully',userInfo : user});
+    } catch (err) {
+        next(err);
+    }
+})
+
 module.exports = router;

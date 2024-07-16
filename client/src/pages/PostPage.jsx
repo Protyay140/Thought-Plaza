@@ -2,6 +2,7 @@ import { HR, Spinner } from 'flowbite-react';
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import Comment from '../components/Comment';
 
 const PostPage = () => {
     const [loading, setLoading] = useState(true);
@@ -36,13 +37,13 @@ const PostPage = () => {
         </div>
     )
     return (
-        <div className='min-h-screen  px-12 pt-3'>
+        <div className='min-h-screen  px-12 pt-3 pb-2'>
             <div className="container min-h-screen  flex flex-col">
                 <div className="title  text-center font-bold text-lg md:text-3xl italic my-2">
                     {post.title && post.title}
                 </div>
                 <div className='category  text-center font-semibold text-sm italic my-2'>
-                    <span className='px-2 bg-[#574f4f] text-white rounded-md '>{post.category && post.category}</span>
+                    <span className='px-2 bg-[#574f4f] text-white rounded-full '>{post.category && post.category}</span>
                 </div>
                 {
                     post.image &&
@@ -50,14 +51,23 @@ const PostPage = () => {
                         <img src={post.image} alt="post-image" className='h-40 md:h-96 mx-auto rounded-xl' />
                     </div>
                 }
+                <div className=' md:px-14 flex justify-end mt-2'>
+                    {post.createdAt && <span className='text-[#06b6d4] px-2 rounded-full text-xm'>{new Date(post.createdAt).toLocaleString()}</span>}
+                </div>
                 {
-                    post.image && 
+                    post.image &&
                     <HR />
                 }
+
                 <div className="title  italic my-2 px-1 md:px-52"
-                dangerouslySetInnerHTML={{__html : post && post.content}}
+                    dangerouslySetInnerHTML={{ __html: post && post.content }}
                 >
                 </div>
+                <HR />
+                <div className='comment px-1 md:px-52 mt-2 '>
+                    <Comment postId={post._id}/>
+                </div>
+
             </div>
         </div>
     )
