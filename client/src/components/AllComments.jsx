@@ -1,8 +1,10 @@
 import moment from 'moment'
 import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux';
 
-const AllComments = ({ comment }) => {
+const AllComments = ({ comment , onDelete}) => {
     const [user, setUser] = useState();
+    const {currentUser} = useSelector(state=> state.user);
     useEffect(() => {
         const fetchUser = async () => {
             try {
@@ -51,8 +53,13 @@ const AllComments = ({ comment }) => {
             <div className='user-comment ml-[2rem] text-sm'>
                 {comment.comment}
             </div>
-            <div>
-
+            <div className=''>
+                {
+                    currentUser && (currentUser._id == comment.userId) && 
+                    <>
+                        <button onClick={()=> onDelete(comment._id)} className='text-xs ml-[2rem] bg-gray-500 px-1 rounded-md hover:bg-gray-600 text-white'>delete</button>
+                    </>
+                }
             </div>
         </div>
     )

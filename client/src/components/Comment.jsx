@@ -1,13 +1,16 @@
-import { Textarea } from 'flowbite-react';
+import { Button, Modal, Textarea } from 'flowbite-react';
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import AllComments from './AllComments';
+import { HiOutlineExclamationCircle } from 'react-icons/hi';
 
 const Comment = ({ postId }) => {
     const { currentUser } = useSelector(state => state.user);
     const [comment, setComment] = useState('');
+    const [openModal, setOpenModal] = useState(false);
+    const [commentIdToDelete,setCommentIdToDelete] = useState();
     console.log('postId : ', postId);
     console.log('userId : ', currentUser._id);
     const [userComments, setUserComments] = useState([]);
@@ -74,12 +77,36 @@ const Comment = ({ postId }) => {
                 // toast.success(data.message, {
                 //     position: 'top-center'
                 // });
-                setUserComments([data.commentInfo,...userComments])
+                setUserComments([data.commentInfo, ...userComments])
                 setComment('');
             }
 
         } catch (err) {
             console.log('error in submiting the comment : ', err);
+        }
+    }
+
+
+    const handleDelete = async () => {
+        try {
+            // alert(commentId);
+            setOpenModal(false);
+            const res = await fetch(`http://localhost:3000/api/comment/delete-comment/${commentIdToDelete}`,{
+                method : 'DELETE',
+                credentials : 'include',
+                headers : {
+                    'Content-Type' : 'application/json'
+                }
+            })
+
+            const data = await res.json();
+            if(!res.ok){
+                toast.error(data.message,{position : 'top-center'});
+            }else{
+                setUserComments(userComments.filter((comment)=> comment._id != commentIdToDelete));
+            }
+        } catch (err) {
+            console.log('error in deleting the comment : ', err);
         }
     }
 
@@ -128,12 +155,35 @@ const Comment = ({ postId }) => {
                         {
                             userComments.map((comment) => {
                                 return (
-                                    <AllComments key={comment._id} comment={comment} />
+                                    <AllComments key={comment._id} comment={comment}
+                                        onDelete={(commentId) => {
+                                           setOpenModal(true);
+                                           setCommentIdToDelete(commentId);
+                                        }} />
                                 )
                             })
                         }
                     </>
             }
+            <Modal show={openModal} size="md" onClose={() => setOpenModal(false)} popup>
+                <Modal.Header />
+                <Modal.Body>
+                    <div className="text-center">
+                        <HiOutlineExclamationCircle className="mx-auto mb-4 h-14 w-14 text-gray-400 dark:text-gray-200" />
+                        <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+                            Are you sure you want to delete this product?
+                        </h3>
+                        <div className="flex justify-center gap-4">
+                            <Button color="failure" onClick={handleDelete}>
+                                {"Yes, I'm sure"}
+                            </Button>
+                            <Button color="gray" onClick={() => setOpenModal(false)}>
+                                No, cancel
+                            </Button>
+                        </div>
+                    </div>
+                </Modal.Body>
+            </Modal>
         </div>
     )
 }
