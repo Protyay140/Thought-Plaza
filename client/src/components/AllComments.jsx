@@ -28,7 +28,7 @@ const AllComments = ({ comment , onDelete}) => {
 
     }, [comment]);
 
-    console.log("comment user : ", user);
+    // console.log("comment user : ", user);
 
     return (
         <div className='flex flex-col mt-2 '>

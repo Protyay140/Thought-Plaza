@@ -3,11 +3,13 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Comment from '../components/Comment';
+import PostCard from '../components/PostCard';
 
 const PostPage = () => {
     const [loading, setLoading] = useState(true);
     const { postId } = useParams();
     const [post, setPost] = useState('');
+    const [recentPosts, setRecentPosts] = useState([]);
     useEffect(() => {
 
         const fetchPost = async () => {
@@ -25,11 +27,29 @@ const PostPage = () => {
         }
 
         fetchPost();
-
     }, [postId]);
 
-    console.log("params : ", postId);
-    console.log('post : ', post);
+    useEffect(() => {
+
+        const fetchRecentPost = async () => {
+            try {
+                const res = await fetch('http://localhost:3000/api/post/getPosts?limit=3');
+                const data = await res.json();
+                if (!res.ok) {
+                    console.log('error in recent post json : ', data.message);
+                } else {
+                    setRecentPosts(data.postInfo.posts);
+                }
+            } catch (err) {
+                console.log('error in getting recent posts : ', err);
+            }
+        }
+
+        fetchRecentPost();
+    }, []);
+
+    // console.log("params : ", postId);
+    // console.log('post : ', post);
 
     if (loading) return (
         <div className='min-h-screen flex justify-center items-center'>
@@ -65,9 +85,21 @@ const PostPage = () => {
                 </div>
                 <HR />
                 <div className='comment px-1 md:px-52 mt-2 '>
-                    <Comment postId={post._id}/>
+                    <Comment postId={post._id} />
                 </div>
-
+                <HR />
+                <div className="header text-center italic mb-3 font-bold">
+                    Recent Posts
+                </div>
+                <div className='recent-posts flex flex-col md:flex-row gap-2 justify-between'>
+                    {
+                        recentPosts.map((recentpost) => {
+                            return (
+                                <PostCard key={recentpost._id} post={recentpost}/>
+                            )
+                        })
+                    }
+                </div>
             </div>
         </div>
     )

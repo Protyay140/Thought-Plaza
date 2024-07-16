@@ -95,13 +95,13 @@ const AllPosts = () => {
           position: 'top-center'
         })
       }
-      console.log("post deleted : ", postIdToDelete);
+      // console.log("post deleted : ", postIdToDelete);
     } catch (err) {
       console.log("error in deleting post : ", err);
     }
   }
 
-  console.log('user posts : ', userPosts);
+  // console.log('user posts : ', userPosts);
 
   return (
     <>

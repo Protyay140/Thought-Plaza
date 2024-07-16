@@ -40,7 +40,7 @@ const Comment = ({ postId }) => {
         fetchComments();
     }, [postId]);
 
-    console.log('user comments : ', userComments);
+    // console.log('user comments : ', userComments);
 
     const handleSubmmitComment = async () => {
         try {
