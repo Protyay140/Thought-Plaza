@@ -10,6 +10,7 @@ import Header from './components/Header'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import CreatePost from './pages/CreatePost'
+import PostPage from './pages/PostPage'
 
 const App = () => {
   return (
@@ -24,6 +25,7 @@ const App = () => {
         <Route path="/dashboard" element={<Dashboard />} /> 
         <Route path='/project' element={<Project />} />
         <Route path='/create-post' element={<CreatePost />} />
+        <Route path='/post/:postId' element={<PostPage />} />
       </Routes>
     </BrowserRouter>
   )
