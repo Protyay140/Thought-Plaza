@@ -8,6 +8,8 @@ import { toast } from 'react-toastify';
 import { signOutSuccess } from '../redux/user/userSlice';
 import { MdCompost } from "react-icons/md";
 import { FaUsers } from "react-icons/fa6";
+import { FaRegCommentDots } from "react-icons/fa";
+import { RiDashboard2Line } from "react-icons/ri";
 
 const DashSidebar = () => {
     const [tab, setTab] = useState();
@@ -50,9 +52,20 @@ const DashSidebar = () => {
     return (
         <Sidebar aria-label="Default sidebar example" className='w-full'>
             <Sidebar.Items>
+                {
+                    currentUser.isAdmin && <>
+                        <Sidebar.ItemGroup>
+                            <Link to='/dashboard?tab=dashboard'>
+                                <Sidebar.Item as='div' active={tab == 'dashboard'} icon={RiDashboard2Line} className='cursor-pointer text-center'>
+                                    Dashboard
+                                </Sidebar.Item>
+                            </Link>
+                        </Sidebar.ItemGroup>
+                    </>
+                }
                 <Sidebar.ItemGroup>
                     <Link to='/dashboard?tab=profile'>
-                        <Sidebar.Item as='div' active={tab == 'profile'} icon={CgProfile} className='cursor-pointer text-center'>
+                        <Sidebar.Item as='div' active={tab == 'profile'} label={currentUser.isAdmin ? 'admin' : 'user'} labelColor="dark" icon={CgProfile} className='cursor-pointer text-center'>
                             Profile
                         </Sidebar.Item>
                     </Link>
@@ -63,6 +76,13 @@ const DashSidebar = () => {
                             <Link to='/dashboard?tab=users'>
                                 <Sidebar.Item as='div' active={tab == 'users'} icon={FaUsers} className='cursor-pointer text-center'>
                                     Users
+                                </Sidebar.Item>
+                            </Link>
+                        </Sidebar.ItemGroup>
+                        <Sidebar.ItemGroup>
+                            <Link to='/dashboard?tab=comments'>
+                                <Sidebar.Item as='div' active={tab == 'comments'} icon={FaRegCommentDots} className='cursor-pointer text-center'>
+                                    Comments
                                 </Sidebar.Item>
                             </Link>
                         </Sidebar.ItemGroup>

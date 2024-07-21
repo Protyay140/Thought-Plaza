@@ -94,7 +94,7 @@ const Header = () => {
                                     <Dropdown.Item >{currentUser.email}</Dropdown.Item>
                                     {
                                         currentUser.isAdmin && <>
-                                            <Link to='/dashboard?tab=profile'>
+                                            <Link to='/dashboard?tab=dashboard'>
                                                 <Dropdown.Item >
                                                     dashboard
                                                 </Dropdown.Item>
@@ -127,11 +127,11 @@ const Header = () => {
                     <Navbar.Link active={path === '/'} className={path === '/' ? 'sm:bg-none bg-gradient-to-r from-purple-400 via-pink-400 to-violet-400' : ''} as={'div'}>
                         <Link to='/'>Home</Link>
                     </Navbar.Link>
-                    <Navbar.Link active={path === '/about'} className={path === '/about' ? 'sm:bg-none bg-gradient-to-r from-purple-400 via-pink-400 to-violet-400' : ''} as={'div'}>
-                        <Link to='/about'>About</Link>
+                    <Navbar.Link active={path === '/contact'} className={path === '/contact' ? 'sm:bg-none bg-gradient-to-r from-purple-400 via-pink-400 to-violet-400' : ''} as={'div'}>
+                        <Link to='/contact'>Contact</Link>
                     </Navbar.Link>
-                    <Navbar.Link active={path === '/project'} className={path === '/project' ? 'sm:bg-none bg-gradient-to-r from-purple-400 via-pink-400 to-violet-400' : ''} as={'div'}>
-                        <Link to='/project'>Project</Link>
+                    <Navbar.Link active={path === '/post'} className={path === '/post' ? 'sm:bg-none bg-gradient-to-r from-purple-400 via-pink-400 to-violet-400' : ''} as={'div'}>
+                        <Link to='/post'>Posts</Link>
                     </Navbar.Link>
                 </Navbar.Collapse>
                 {/* </div> */}

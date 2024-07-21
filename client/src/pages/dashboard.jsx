@@ -5,6 +5,8 @@ import Profile from '../components/Profile';
 import DashSidebar from '../components/DashSidebar';
 import AllPosts from '../components/AllPosts';
 import AllUsers from '../components/AllUsers';
+import CurrentUserPostComments from '../components/CurrentUserPostComments';
+import AdminDashBoard from '../components/AdminDashBoard';
 
 const Dashboard = () => {
   const {currentUser} = useSelector(state=> state.user);
@@ -36,6 +38,10 @@ const Dashboard = () => {
           }
           {
             tab == 'posts' && <AllPosts />
+          }
+          { tab == 'comments' && <CurrentUserPostComments />}
+          {
+            tab == 'dashboard' && <AdminDashBoard />
           }
         </div>
     </div>
