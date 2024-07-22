@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Avatar, Button, Dropdown, Navbar, TextInput } from "flowbite-react";
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { CiSearch } from "react-icons/ci";
@@ -15,6 +15,20 @@ const Header = () => {
     console.log('theme : ', theme);
     const { currentUser } = useSelector(state => state.user);
     const navigate = useNavigate();
+    const [searchTerm, setSearchTerm] = useState('');
+    const location = useLocation();
+
+    useEffect(()=>{
+        const urlParams = new URLSearchParams(location.search);
+        const searchParam = urlParams.get('searchTerm');
+
+        if(searchParam){
+            setSearchTerm(searchParam);
+        }
+    },[location.search]);
+    console.log('searchTerm : ',searchTerm);
+    console.log('location : ',location);
+    console.log('location.search : ',location.search);
     const handleSignOut = async (req, res) => {
         try {
             const data = await fetch('http://localhost:3000/api/user/signout', {
@@ -40,6 +54,15 @@ const Header = () => {
         }
     }
 
+    const handleFormSubmit = (e)=>{
+        e.preventDefault();
+        const urlParams = new URLSearchParams(location.search);
+        urlParams.set('searchTerm',searchTerm);
+        const searchQuery = urlParams.toString();
+
+        navigate(`/search?${searchQuery}`);
+    }
+
     return (
         <div>
             <Navbar className='border-b-2 '>
@@ -47,13 +70,14 @@ const Header = () => {
                     <Link to={'/'} className='text-white font-semibold rounded-lg py-1 px-2 bg-gradient-to-r from-purple-500 via-pink-500 to-violet-500'>Blog-Spot</Link>
                 </div>
                 <div className='search text-red-700 hidden lg:inline' >
-                    <form action="" className=''>
+                    <form onSubmit={handleFormSubmit} className=''>
                         <TextInput color="gray" className='focus:outline-none focus:ring-1 focus:ring-gray-500'
                             id='search'
                             name='search'
                             placeholder='search...'
                             rightIcon={CiSearch}
-
+                            value={searchTerm}
+                            onChange={(e)=>setSearchTerm(e.target.value)}
                         />
                     </form>
                 </div>

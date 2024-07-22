@@ -78,4 +78,19 @@ router.get('/getAllComments',async(req,res,next)=>{
     }
 })
 
+router.get('/getRecentComments',async(req,res,next)=>{
+    try {
+        const user = await User.findOne({_id:req.query.userId});
+        if(!user.isAdmin){
+            return res.status(400).json({success:false,message:'not allowed '});
+        }
+        const limit = req.query.limit || 5;
+        const recentComments = await Comment.find({}).sort({ createdAt: -1 }).limit(limit);
+
+        return res.status(200).json({success:true,message:'get all recent comments successfully',commentInfo:recentComments});
+    } catch (err) {
+        next(err);
+    }
+})
+
 module.exports = router;

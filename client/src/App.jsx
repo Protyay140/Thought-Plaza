@@ -13,6 +13,7 @@ import PostPage from './pages/PostPage'
 import TopScrolling from './components/TopScrolling'
 import Contact from './pages/Contact'
 import Post from './pages/Posts'
+import Search from './pages/Search'
 
 const App = () => {
   return (
@@ -29,6 +30,7 @@ const App = () => {
         <Route path='/contact' element={<Contact />} />
         <Route path='/create-post' element={<CreatePost />} />
         <Route path='/post/:postId' element={<PostPage />} />
+        <Route path='/search' element={<Search />} />
       </Routes>
     </BrowserRouter>
   )

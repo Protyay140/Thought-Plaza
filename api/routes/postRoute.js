@@ -31,10 +31,10 @@ router.get('/getPosts', async (req, res,next) => {
             ...(req.query.title && { title: req.query.title }),
             ...(req.query.category && { category: req.query.category }),
             ...(req.query.postId && { _id: req.query.postId }),
-            ...(req.query.searchParam && {
+            ...(req.query.searchTerm && {
                 $or: [
-                    { title: { $regex: req.query.searchParam, $options: 'i' } },
-                    { category: { $regex: req.query.searchParam, $options: 'i' } }
+                    { title: { $regex: req.query.searchTerm, $options: 'i' } },
+                    { category: { $regex: req.query.searchTerm, $options: 'i' } }
                 ]
             })
         })
