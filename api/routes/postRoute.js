@@ -2,7 +2,7 @@ const express = require('express');
 const Post = require('../models/post_model');
 const verifyUser = require('../middleware/verifyUser');
 const router = express.Router();
-
+const Comment = require('../models/comment_model.js');
 router.post('/create-post', async (req, res, next) => {
     try {
 
@@ -62,6 +62,9 @@ router.delete('/delete-post',async(req,res,next)=>{
             return res.status(200).json({ success: false, message: "post not selected !!!"});
         }
         const data = await Post.findByIdAndDelete({_id : req.query.postId});
+
+        // also we have to delete all the comments of that post .................
+        await Comment.deleteMany({postId : req.query.postId});
         return res.status(200).json({ success: true, message: "post deleted successfully"});
     } catch (err) {
         next(err);

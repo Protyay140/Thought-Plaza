@@ -15,7 +15,7 @@ const Home = () => {
   };
   return (
     <>
-      <div className=''>welcome to home mr. {currentUser?.username}</div>
+      <div className='min-h-screen'>welcome to home mr. {currentUser?.username}</div>
       {/* <div style={backgroundImageStyle}>
         sdkfjkf
       </div> */}
