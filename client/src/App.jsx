@@ -14,13 +14,17 @@ import TopScrolling from './components/TopScrolling'
 import Contact from './pages/Contact'
 import Post from './pages/Posts'
 import Search from './pages/Search'
+import PageFooter from './components/PageFooter'
 
 const App = () => {
   return (
     <BrowserRouter>
       <TopScrolling />
       <Header />
-      <ToastContainer />
+      <ToastContainer 
+        pauseOnFocusLoss={false}
+        autoClose={2000}
+      />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/post" element={<Post />} />
@@ -32,6 +36,7 @@ const App = () => {
         <Route path='/post/:postId' element={<PostPage />} />
         <Route path='/search' element={<Search />} />
       </Routes>
+      <PageFooter />
     </BrowserRouter>
   )
 }

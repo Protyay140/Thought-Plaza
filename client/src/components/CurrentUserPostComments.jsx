@@ -45,7 +45,7 @@ const CurrentUserPostComments = () => {
         <>
             {comments.length == 0 ? <>
                 <div className='min-h-screen flex justify-center items-center'>
-                    <div className='text-2xl italic'>No Post Comment Yet 😔</div>
+                    <div className='text-2xl italic text-gray-500'>No Post Comment Yet 😔</div>
                 </div>
             </>
                 :

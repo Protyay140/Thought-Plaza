@@ -193,7 +193,7 @@ const AllPosts = () => {
                 }
               </> :
                 <>
-                  <p className='text-center mt-3 font-bold text-2xl italic'>You haven't publish any post yet !!!</p>
+                  <p className='text-center mt-3 font-bold text-2xl italic text-gray-500 flex justify-center min-h-screen items-center'>You haven't published any post yet !!!</p>
                 </>
             }
           </div>

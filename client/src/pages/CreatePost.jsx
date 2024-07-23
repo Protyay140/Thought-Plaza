@@ -17,7 +17,7 @@ const CreatePost = () => {
     const [imageFileUrl, setImageFileUrl] = useState();
     const [formData, setFormData] = useState({});
     useEffect(() => {
-        if (currentUser.isAdmin == false) {
+        if (currentUser == null) {
             navigate('/sign-in');
         }
     })

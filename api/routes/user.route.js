@@ -3,6 +3,7 @@ const router = express.Router();
 const verifyUser = require('../middleware/verifyUser.js');
 const bcryptjs = require('bcryptjs');
 const User = require('../models/user_model.js');
+const Post = require('../models/post_model.js');
 
 router.put('/update/:userId', verifyUser, async (req, res, next) => {
     try {
@@ -109,6 +110,20 @@ router.get('/getUser/:userId',async(req,res,next)=>{
     try {
         const user = await User.findOne({_id:req.params.userId});
         res.status(200).json({success:true,message:'user get successfully',userInfo : user});
+    } catch (err) {
+        next(err);
+    }
+})
+
+router.get('/getPostUser/:postId',async(req,res,next)=>{
+    try {
+        const post = await Post.findOne({_id:req.params.postId});
+        if(!post){
+            return res.status(400).json({success:true,message:'no post selected'});
+        }
+        
+        const user = await User.findOne({_id : post.user});
+        res.status(200).json({success:true,message:'post user get successfully',userInfo : user});
     } catch (err) {
         next(err);
     }

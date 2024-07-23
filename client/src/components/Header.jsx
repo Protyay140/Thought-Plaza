@@ -18,17 +18,17 @@ const Header = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const location = useLocation();
 
-    useEffect(()=>{
+    useEffect(() => {
         const urlParams = new URLSearchParams(location.search);
         const searchParam = urlParams.get('searchTerm');
 
-        if(searchParam){
+        if (searchParam) {
             setSearchTerm(searchParam);
         }
-    },[location.search]);
-    console.log('searchTerm : ',searchTerm);
-    console.log('location : ',location);
-    console.log('location.search : ',location.search);
+    }, [location.search]);
+    console.log('searchTerm : ', searchTerm);
+    console.log('location : ', location);
+    console.log('location.search : ', location.search);
     const handleSignOut = async (req, res) => {
         try {
             const data = await fetch('http://localhost:3000/api/user/signout', {
@@ -54,10 +54,10 @@ const Header = () => {
         }
     }
 
-    const handleFormSubmit = (e)=>{
+    const handleFormSubmit = (e) => {
         e.preventDefault();
         const urlParams = new URLSearchParams(location.search);
-        urlParams.set('searchTerm',searchTerm);
+        urlParams.set('searchTerm', searchTerm);
         const searchQuery = urlParams.toString();
 
         navigate(`/search?${searchQuery}`);
@@ -77,12 +77,12 @@ const Header = () => {
                             placeholder='search...'
                             rightIcon={CiSearch}
                             value={searchTerm}
-                            onChange={(e)=>setSearchTerm(e.target.value)}
+                            onChange={(e) => setSearchTerm(e.target.value)}
                         />
                     </form>
                 </div>
                 <div>
-                    <Button className='dark:bg-white lg:hidden rounded-full hover:bg-red-400 focus:outline-none focus:ring-1 focus:ring-gray-500' color='gray'>
+                    <Button onClick={handleFormSubmit} className='dark:bg-white lg:hidden rounded-full hover:bg-red-400 focus:outline-none focus:ring-1 focus:ring-gray-500' color='gray'>
                         <CiSearch className='text-black' />
                     </Button>
                 </div>
@@ -151,11 +151,11 @@ const Header = () => {
                     <Navbar.Link active={path === '/'} className={path === '/' ? 'sm:bg-none bg-gradient-to-r from-purple-400 via-pink-400 to-violet-400' : ''} as={'div'}>
                         <Link to='/'>Home</Link>
                     </Navbar.Link>
+                    <Navbar.Link active={path === '/dashboard?tab=profile'} className={path === '/post' ? 'sm:bg-none bg-gradient-to-r from-purple-400 via-pink-400 to-violet-400' : ''} as={'div'}>
+                        <Link to='/dashboard?tab=profile'>Profile</Link>
+                    </Navbar.Link>
                     <Navbar.Link active={path === '/contact'} className={path === '/contact' ? 'sm:bg-none bg-gradient-to-r from-purple-400 via-pink-400 to-violet-400' : ''} as={'div'}>
                         <Link to='/contact'>Contact</Link>
-                    </Navbar.Link>
-                    <Navbar.Link active={path === '/post'} className={path === '/post' ? 'sm:bg-none bg-gradient-to-r from-purple-400 via-pink-400 to-violet-400' : ''} as={'div'}>
-                        <Link to='/post'>Posts</Link>
                     </Navbar.Link>
                 </Navbar.Collapse>
                 {/* </div> */}

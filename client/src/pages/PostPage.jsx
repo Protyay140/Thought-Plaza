@@ -10,6 +10,8 @@ const PostPage = () => {
     const { postId } = useParams();
     const [post, setPost] = useState('');
     const [recentPosts, setRecentPosts] = useState([]);
+    const [recentPostsLoading, setRecentPostsLoading] = useState(false);
+    const [user, setUser] = useState();
     useEffect(() => {
 
         const fetchPost = async () => {
@@ -25,19 +27,16 @@ const PostPage = () => {
                 setLoading(false);
             }
         }
-
-        fetchPost();
-    }, [postId]);
-
-    useEffect(() => {
-
         const fetchRecentPost = async () => {
             try {
+                setRecentPostsLoading(true);
                 const res = await fetch('http://localhost:3000/api/post/getPosts?limit=3');
                 const data = await res.json();
                 if (!res.ok) {
+                    setRecentPostsLoading(false);
                     console.log('error in recent post json : ', data.message);
                 } else {
+                    setRecentPostsLoading(false);
                     setRecentPosts(data.postInfo.posts);
                 }
             } catch (err) {
@@ -45,11 +44,33 @@ const PostPage = () => {
             }
         }
 
+        const fetchUser = async () => {
+            try {
+                const res = await fetch(`http://localhost:3000/api/user/getPostUser/${postId}`);
+                const data = await res.json();
+                if (!res.ok) {
+                    console.log('erorr in fetching user of the post api : ', data.message);
+                } else {
+                    // console.log('user post api response json : ',data);
+                    setUser(data.userInfo);
+                }
+            } catch (err) {
+                console.log('erorr in fetching user of the post : ', err);
+            }
+        }
+
         fetchRecentPost();
-    }, []);
+        fetchPost();
+        fetchUser();
+    }, [postId]);
+
+    // useEffect(() => {
+
+
+    // }, []);
 
     // console.log("params : ", postId);
-    // console.log('post : ', post);
+    console.log('post user : ', user);
 
     if (loading) return (
         <div className='min-h-screen flex justify-center items-center'>
@@ -71,8 +92,14 @@ const PostPage = () => {
                         <img src={post.image} alt="post-image" className='h-40 md:h-96 mx-auto rounded-xl' />
                     </div>
                 }
-                <div className=' md:px-14 flex justify-end mt-2'>
-                    {post.createdAt && <span className='text-[#06b6d4] px-2 rounded-full text-xm'>{new Date(post.createdAt).toLocaleString()}</span>}
+                <div className=' md:px-14 flex justify-around mt-2 flex-col sm:flex-row'>
+                    <div className='text-sm'>owner : 
+                        {
+                            user && 
+                            <span className=' font-bold italic text-teal-400'> @{user.username}</span>
+                        }
+                    </div>
+                    <div className='text-sm'>date : {post.createdAt && <span className='text-[#06b6d4] px-2 rounded-full text-xm'>{new Date(post.createdAt).toLocaleString()}</span>}</div>
                 </div>
                 {
                     post.image &&
@@ -88,18 +115,31 @@ const PostPage = () => {
                     <Comment postId={post._id} />
                 </div>
                 <HR />
-                <div className="header text-center italic mb-3 font-bold">
-                    Recent Posts
-                </div>
-                <div className='recent-posts flex flex-col md:flex-row gap-2 justify-between'>
-                    {
-                        recentPosts.map((recentpost) => {
-                            return (
-                                <PostCard key={recentpost._id} post={recentpost}/>
-                            )
-                        })
-                    }
-                </div>
+                {
+                    !recentPostsLoading &&
+                    <>
+                        <div className="header text-center italic mb-3 font-bold">
+                            Recent Posts
+                        </div>
+                        <div className='recent-posts flex flex-col md:flex-row gap-2 justify-between'>
+                            {
+                                recentPosts.map((recentpost) => {
+                                    return (
+                                        <PostCard key={recentpost._id} post={recentpost} />
+                                    )
+                                })
+                            }
+                        </div>
+                    </>
+                }
+                {
+                    recentPostsLoading &&
+                    <>
+                        <div>
+                            <Spinner size='xl' />
+                        </div>
+                    </>
+                }
             </div>
         </div>
     )

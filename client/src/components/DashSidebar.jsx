@@ -17,6 +17,11 @@ const DashSidebar = () => {
     const { currentUser } = useSelector(state => state.user);
     const dispatch = useDispatch();
     useEffect(() => {
+        if (currentUser == null) {
+            navigate('/sign-in');
+        }
+    });
+    useEffect(() => {
         const urlParam = new URLSearchParams(location.search);
         const currentTab = urlParam.get('tab');
         if (currentTab) {
@@ -53,7 +58,7 @@ const DashSidebar = () => {
         <Sidebar aria-label="Default sidebar example" className='w-full'>
             <Sidebar.Items>
                 {
-                    currentUser.isAdmin && <>
+                    currentUser?.isAdmin && <>
                         <Sidebar.ItemGroup>
                             <Link to='/dashboard?tab=dashboard'>
                                 <Sidebar.Item as='div' active={tab == 'dashboard'} icon={RiDashboard2Line} className='cursor-pointer text-center'>
@@ -65,13 +70,13 @@ const DashSidebar = () => {
                 }
                 <Sidebar.ItemGroup>
                     <Link to='/dashboard?tab=profile'>
-                        <Sidebar.Item as='div' active={tab == 'profile'} label={currentUser.isAdmin ? 'admin' : 'user'} labelColor="dark" icon={CgProfile} className='cursor-pointer text-center'>
+                        <Sidebar.Item as='div' active={tab == 'profile'} label={currentUser?.isAdmin ? 'admin' : 'user'} labelColor="dark" icon={CgProfile} className='cursor-pointer text-center'>
                             Profile
                         </Sidebar.Item>
                     </Link>
                 </Sidebar.ItemGroup>
                 {
-                    currentUser.isAdmin && <>
+                    currentUser?.isAdmin && <>
                         <Sidebar.ItemGroup>
                             <Link to='/dashboard?tab=users'>
                                 <Sidebar.Item as='div' active={tab == 'users'} icon={FaUsers} className='cursor-pointer text-center'>
@@ -79,22 +84,22 @@ const DashSidebar = () => {
                                 </Sidebar.Item>
                             </Link>
                         </Sidebar.ItemGroup>
-                        <Sidebar.ItemGroup>
-                            <Link to='/dashboard?tab=comments'>
-                                <Sidebar.Item as='div' active={tab == 'comments'} icon={FaRegCommentDots} className='cursor-pointer text-center'>
-                                    Comments
-                                </Sidebar.Item>
-                            </Link>
-                        </Sidebar.ItemGroup>
-                        <Sidebar.ItemGroup>
-                            <Link to='/dashboard?tab=posts'>
-                                <Sidebar.Item as='div' active={tab == 'posts'} icon={MdCompost} className='cursor-pointer text-center'>
-                                    Posts
-                                </Sidebar.Item>
-                            </Link>
-                        </Sidebar.ItemGroup>
                     </>
                 }
+                <Sidebar.ItemGroup>
+                    <Link to='/dashboard?tab=posts'>
+                        <Sidebar.Item as='div' active={tab == 'posts'} icon={MdCompost} className='cursor-pointer text-center'>
+                            Posts
+                        </Sidebar.Item>
+                    </Link>
+                </Sidebar.ItemGroup>
+                <Sidebar.ItemGroup>
+                    <Link to='/dashboard?tab=comments'>
+                        <Sidebar.Item as='div' active={tab == 'comments'} icon={FaRegCommentDots} className='cursor-pointer text-center'>
+                            Comments
+                        </Sidebar.Item>
+                    </Link>
+                </Sidebar.ItemGroup>
                 <Sidebar.ItemGroup>
                     <Sidebar.Item as='div' onClick={handleSignOut} active={tab == 'signout'} icon={GoSignOut} className='cursor-pointer text-center'>
                         Sign-Out

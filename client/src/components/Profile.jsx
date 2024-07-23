@@ -35,8 +35,6 @@ const Profile = () => {
     }
 
 
-
-
     useEffect(() => {
         if (imageFile) {
             uploadImage();
@@ -136,6 +134,7 @@ const Profile = () => {
         }
     }
 
+
     return (
         <div className='flex gap-2 mt-3 flex-col '>
             <div className='hidden'> <input type="file" onChange={handleFile} ref={pickImageFile} /></div>
@@ -222,7 +221,7 @@ const Profile = () => {
                 </div>
                 <div className='text-center'>
                     {
-                        currentUser.isAdmin && !loading && <>
+                        currentUser && !loading && <>
                             <Link to={`/create-post`}>
                                 <button className='border font-bold p-2 px-4 rounded-full hover:text-white hover:bg-gradient-to-r hover:from-purple-500 hover:via-pink-500 hover:to-violet-500'>Create Your New Post</button>
                             </Link>
