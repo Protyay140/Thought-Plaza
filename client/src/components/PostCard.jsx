@@ -20,7 +20,7 @@ const PostCard = ({ post }) => {
     }, []);
     console.log('recent post user : ', user);
     return (
-        <div className='border flex flex-col  group relative overflow-hidden h-[280px] sm:w-[430px] rounded-lg'>
+        <div className='border flex flex-col  group relative overflow-hidden h-[300px] md:h-[280px] sm:w-[430px] rounded-lg'>
             <Link to={`/post/${post._id}`}>
                 <img src={post.image} alt="postImage" className='h-[200px] w-full
             object-cover group-hover:h-[150px] transition-all duration-200

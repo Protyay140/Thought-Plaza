@@ -84,10 +84,10 @@ const SignUp = () => {
       <div className='container flex flex-col md:flex-row md:gap-4'>
         <div className='left md:w-1/2 md:mt-16'>
           <div className='logo font-bold text-lg sm:text-lg dark:text-white text-center'>
-            <Link to={'/'} className='text-white font-semibold rounded-full py-3 px-3 bg-gradient-to-r from-purple-500 via-pink-500 to-violet-500'>Blog-Spot</Link>
+            <Link to={'/'} className='text-white font-semibold rounded-full py-3 px-3 bg-gradient-to-r from-purple-500 via-pink-500 to-violet-500'>Thought-Plaza</Link>
           </div>
           <div className="desc text-sm mt-3 text-center">
-            <p className='first-letter:text-3xl italic'>Welcome to blogspot, a vibrant space where we explore. Join us on a journey of discovery, insight, and inspiration as we delve into beautiful thoughts.</p>
+            <p className='first-letter:text-3xl italic'>Welcome to Thought-Plaza, a vibrant space where we explore. Join us on a journey of discovery, insight, and inspiration as we delve into beautiful thoughts.</p>
           </div>
         </div>
         <div className='right mt-10 md:mt-0 md:w-1/3'>
