@@ -9,7 +9,11 @@ const postRoutes = require('./routes/postRoute.js');
 const commentRoutes = require('./routes/comment.route.js');
 const contactRoutes = require('./routes/contact.route.js');
 const cookie = require('cookie-parser');
+const path = require('path');
 dotenv.config();
+
+// const __dirname = path.resolve();
+
 const port = 3000;
 
 const corsOptions = {
@@ -38,6 +42,11 @@ app.use('/api/contact',contactRoutes);
 app.listen(port, () => {
     console.log('app is running on port ', port);
 })
+
+app.use(express.static(path.join(__dirname, '/client/dist')));
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
+  });
 
 app.use((err, req, res, next) => {
     const statuscode = err.status || 500;
