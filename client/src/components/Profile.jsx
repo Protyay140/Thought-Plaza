@@ -10,6 +10,7 @@ import { updateFailure, updateStart, updateSuccess } from '../redux/user/userSli
 import { toast } from 'react-toastify';
 import { HiOutlineExclamationCircle } from "react-icons/hi"
 import { Link, useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 const Profile = () => {
     const pickImageFile = useRef();
@@ -138,7 +139,11 @@ const Profile = () => {
 
 
     return (
-        <div className='flex gap-2 mt-3 flex-col '>
+        <motion.div
+            initial={{ scale: 0.2 }}
+            animate={{ scale: 0.9 }}
+            transition={{ duration: 1, type: 'spring', stiffness: 120, ease: 'easeInOut' }}
+            className='flex gap-2 mt-3 flex-col'>
             <div className='hidden'> <input type="file" onChange={handleFile} ref={pickImageFile} /></div>
             <div className='profile w-1/2 flex justify-center items-center  mx-auto'>
                 <img onClick={() => {
@@ -225,14 +230,17 @@ const Profile = () => {
                     {
                         currentUser && !loading && <>
                             <Link to={`/create-post`}>
-                                <button className='border font-bold p-2 px-4 rounded-full hover:text-white hover:bg-gradient-to-r hover:from-purple-500 hover:via-pink-500 hover:to-violet-500'>Create Your New Post</button>
+                                <motion.button 
+                                animate = {{x:[0,-20,20,-20,20,0]}}
+                                transition= {{delay:1,ease:'easeInOut',duration:1}}
+                                className='border text-sm md:text-lg font-bold p-2 px-4 rounded-full hover:text-white hover:bg-gradient-to-r hover:from-purple-500 hover:via-pink-500 hover:to-violet-500'>Create Your New Post</motion.button>
                             </Link>
                         </>
                     }
                 </div>
             </div>
 
-        </div>
+        </motion.div>
     )
 }
 

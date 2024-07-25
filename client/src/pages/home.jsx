@@ -5,6 +5,8 @@ import Typewriter from 'typewriter-effect';
 import { HR, Spinner } from 'flowbite-react';
 import PostCard from '../components/PostCard';
 import { useNavigate } from 'react-router-dom';
+import transition from '../transition';
+
 const Home = () => {
   const { currentUser } = useSelector(state => state.user);
   useEffect(() => {
@@ -40,7 +42,15 @@ const Home = () => {
     <>
       <div className='main-container min-h-screen flex flex-col  gap-2 p-2'>
         <div className='hero  flex flex-col-reverse md:flex-row gap-2 pl-3'>
-          <div className="left  md:w-1/2 flex flex-col gap-2">
+          <motion.div 
+          variants={{
+            hidden : {opacity:0,y:5},
+            visible : {opacity:1,y:0}
+          }}
+          initial = 'hidden'
+          animate = 'visible'
+          transition= {{duration:0.5,delay:0.25}}
+          className="left  md:w-1/2 flex flex-col gap-2">
             <div className="top text-center mt-3">
               <span className='text-2xl font-bold'>Share Your Thoughts, Engage with the World</span>
             </div>
@@ -58,16 +68,22 @@ const Home = () => {
               <span>Welcome to Thought-Plaza, the place where your ideas take center stage. Create posts on topics that matter to you, share them with a vibrant community, and spark meaningful conversations. Whether you’re sharing your latest insights, telling a story, or commenting on others' posts, your voice matters here. With your personalized dashboard, you can easily keep track of your posts and see what others are saying about them. Dive in and start connecting!</span>
             </div>
             <div className="text-center">
-              <button 
+              <motion.button 
+              whileHover={{scale:1.2}}
+              transition = {{duration:0.3,ease:'easeOut'}}
               onClick={()=>{
                 navigate('/search?searchTerm=')
               }}
-              className='bg-teal-400 p-2 px-5 text-white rounded-lg mt-5 hover:bg-teal-500'>explore posts</button>
+              className='bg-teal-400 p-2 px-5 text-white rounded-lg mt-5 hover:bg-teal-500'>explore posts</motion.button>
             </div>
-          </div>
-          <div className="right  md:w-1/2">
+          </motion.div>
+          <motion.div 
+          initial = {{y:-100}}
+          animate = {{y:0}}
+          transition={{duration : 1}}
+          className="right  md:w-1/2">
             <img src="home_pic.png" alt="hero_image" />
-          </div>
+          </motion.div>
         </div>
         <div className="key-points flex flex-col md:flex-row gap-2 mt-6">
           <div className='md:w-1/3  flex flex-col text-center gap-2'>
@@ -106,9 +122,10 @@ const Home = () => {
           </div>
           <div className='lower  flex flex-col gap-2'>
             <div className='sign-in flex flex-col md:flex-row '>
-              <div className='image md:w-1/2  text-center'>
+              <motion.div 
+              className='image md:w-1/2  text-center'>
                 <img src="signin.png" alt="signin" className='md:w-96  mx-auto' />
-              </div>
+              </motion.div>
               <div className='desc md:w-1/2   '>
                 <p className='first-letter:text-3xl mt-7 text-sm'>
                   Begin your journey by signing into our platform. With a quick and secure sign-in process, you can access your personalized dashboard, stay updated with the latest posts, and engage with the community. Signing in ensures that all your contributions are saved and easily accessible, making your experience seamless and enjoyable
@@ -173,4 +190,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default Home;

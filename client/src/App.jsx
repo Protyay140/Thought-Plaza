@@ -1,6 +1,6 @@
-import {BrowserRouter, Route, Routes} from 'react-router-dom'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
-import Home from './pages/home'  
+import Home from './pages/home'
 import SignIn from './pages/signIn'
 import SignUp from './pages/signUp'
 import Dashboard from './pages/dashboard'
@@ -15,27 +15,30 @@ import Contact from './pages/Contact'
 import Post from './pages/Posts'
 import Search from './pages/Search'
 import PageFooter from './components/PageFooter'
+import { AnimatePresence } from 'framer-motion'
 
 const App = () => {
   return (
     <BrowserRouter>
       <TopScrolling />
       <Header />
-      <ToastContainer 
+      <ToastContainer
         pauseOnFocusLoss={false}
         autoClose={2000}
       />
+
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/post" element={<Post />} />
         <Route path='/sign-in' element={<SignIn />} />
-        <Route path='/sign-up' element={<SignUp />} /> 
-        <Route path="/dashboard" element={<Dashboard />} /> 
+        <Route path='/sign-up' element={<SignUp />} />
+        <Route path="/dashboard" element={<Dashboard />} />
         <Route path='/contact' element={<Contact />} />
         <Route path='/create-post' element={<CreatePost />} />
         <Route path='/post/:postId' element={<PostPage />} />
         <Route path='/search' element={<Search />} />
       </Routes>
+
       <PageFooter />
     </BrowserRouter>
   )

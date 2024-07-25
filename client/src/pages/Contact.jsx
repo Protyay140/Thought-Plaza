@@ -4,6 +4,7 @@ import { MdEmail } from "react-icons/md";
 import { MdOutlineSubject } from "react-icons/md";
 import { TiMessages } from "react-icons/ti";
 import { toast } from 'react-toastify';
+import { motion } from 'framer-motion';
 const Contact = () => {
   const { currentUser } = useSelector(state => state.user);
   const [contactData, setContactData] = useState({
@@ -42,8 +43,12 @@ const Contact = () => {
 
   return (
     <>
-      <div className="container flex justify-center min-h-screen items-center ">
-        <div className="form flex flex-col gap-2 md:w-1/2">
+      <div className="container flex justify-center min-h-screen items-center text-center">
+        <motion.div 
+        initial = {{scale:0.2}}
+        animate = {{scale:0.9}}
+        transition={{duration : 0.5 ,type : 'spring' , stiffness : 120 , ease : 'easeInOut'}}
+        className="form flex flex-col gap-2 md:w-1/2 mx-auto">
           <div className="header text-center font-bold italic mb-2">
             <span className='text-teal-400 text-md md:text-lg'>Send a Message to The Creator 👇🏻</span>
           </div>
@@ -89,7 +94,7 @@ const Contact = () => {
           <div className="submit text-center">
             <button onClick={handleContactForm} className='border p-1 rounded-lg px-5 mt-2 bg-teal-500 text-white hover:bg-teal-600'>send message</button>
           </div>
-        </div>
+        </motion.div>
       </div>
     </>
   )
