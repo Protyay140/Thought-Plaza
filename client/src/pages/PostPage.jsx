@@ -15,7 +15,8 @@ const PostPage = () => {
     useEffect(() => {
 
         const fetchPost = async () => {
-            const res = await fetch(`http://localhost:3000/api/post/getPosts?postId=${postId}`);
+            const baseUrl = import.meta.env.VITE_BASE_URL;
+            const res = await fetch(`${baseUrl}/api/post/getPosts?postId=${postId}`);
 
             const data = await res.json();
             if (!res.ok) {
@@ -30,7 +31,8 @@ const PostPage = () => {
         const fetchRecentPost = async () => {
             try {
                 setRecentPostsLoading(true);
-                const res = await fetch('http://localhost:3000/api/post/getPosts?limit=3');
+                const baseUrl = import.meta.env.VITE_BASE_URL;
+                const res = await fetch(`${baseUrl}/api/post/getPosts?limit=3`);
                 const data = await res.json();
                 if (!res.ok) {
                     setRecentPostsLoading(false);
@@ -46,7 +48,8 @@ const PostPage = () => {
 
         const fetchUser = async () => {
             try {
-                const res = await fetch(`http://localhost:3000/api/user/getPostUser/${postId}`);
+                const baseUrl = import.meta.env.VITE_BASE_URL;
+                const res = await fetch(`${baseUrl}/api/user/getPostUser/${postId}`);
                 const data = await res.json();
                 if (!res.ok) {
                     console.log('erorr in fetching user of the post api : ', data.message);

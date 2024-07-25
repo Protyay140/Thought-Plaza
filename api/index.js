@@ -15,9 +15,9 @@ dotenv.config();
 // const __dirname = path.resolve();
 
 const port = 3000;
-
+const baseUrl = process.env.BASE_CLIENT_URL;
 const allowedOrigins = [
-    'http://localhost:5173',
+    baseUrl,
     'http://localhost:3000',
     'https://thought-plaza.onrender.com'
 ];

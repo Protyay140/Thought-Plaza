@@ -18,7 +18,8 @@ const Home = () => {
     const fetchRecentPost = async () => {
       try {
         setRecentPostsLoading(true);
-        const res = await fetch('http://localhost:3000/api/post/getPosts?limit=3');
+        const baseUrl = import.meta.env.VITE_BASE_URL;
+        const res = await fetch(`${baseUrl}/api/post/getPosts?limit=3`);
         const data = await res.json();
         if (!res.ok) {
           setRecentPostsLoading(false);

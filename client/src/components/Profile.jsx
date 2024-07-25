@@ -87,7 +87,8 @@ const Profile = () => {
             if (Object.keys(formData).length > 0) {
                 dispatch(updateStart());
                 console.log("updating ..............");
-                const data = await fetch(`http://localhost:3000/api/user/update/${currentUser._id}`, {
+                const baseUrl = import.meta.env.VITE_BASE_URL;
+                const data = await fetch(`${baseUrl}/api/user/update/${currentUser._id}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json'
@@ -114,7 +115,8 @@ const Profile = () => {
     const handleDelete = async () => {
         setOpenModal(false);
         try {
-            const res = await fetch(`http://localhost:3000/api/user/delete/${currentUser._id}`, {
+            const baseUrl = import.meta.env.VITE_BASE_URL;
+            const res = await fetch(`${baseUrl}/api/user/delete/${currentUser._id}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json'

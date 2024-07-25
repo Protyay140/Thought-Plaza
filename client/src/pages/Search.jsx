@@ -36,7 +36,8 @@ const Search = () => {
                 setLoading(true);
                 const urlParams = new URLSearchParams(location.search);
                 const searchQuery = urlParams.toString();
-                const res = await fetch(`http://localhost:3000/api/post/getPosts?${searchQuery}`);
+                const baseUrl = import.meta.env.VITE_BASE_URL;
+                const res = await fetch(`${baseUrl}/api/post/getPosts?${searchQuery}`);
                 const data = await res.json();
                 if (!res.ok) {
                     setLoading(false);
@@ -77,7 +78,8 @@ const Search = () => {
             const urlParams = new URLSearchParams(location.search);
             urlParams.set('startFrom',startFrom);
             const searchQuery = urlParams.toString();
-            const res = await fetch(`http://localhost:3000/api/post/getPosts?${searchQuery}`);
+            const baseUrl = import.meta.env.VITE_BASE_URL;
+            const res = await fetch(`${baseUrl}/api/post/getPosts?${searchQuery}`);
             const data = await res.json();
             if(!res.ok){
                 console.log('erorr in show more api : ',err);

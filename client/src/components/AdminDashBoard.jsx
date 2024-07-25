@@ -21,7 +21,8 @@ const AdminDashBoard = () => {
         const fetchTotalUsers = async () => {
             try {
                 setLoading(true);
-                const res = await fetch(`http://localhost:3000/api/user/getUsers?userId=${currentUser._id}`);
+                const baseUrl = import.meta.env.VITE_BASE_URL;
+                const res = await fetch(`${baseUrl}/api/user/getUsers?userId=${currentUser._id}`);
                 const data = await res.json();
                 if (!res.ok) {
                     console.log('err in fetching total number of usrs json ', err);
@@ -37,7 +38,8 @@ const AdminDashBoard = () => {
         const fetchTotalPosts = async () => {
             try {
                 setLoading(true);
-                const res = await fetch(`http://localhost:3000/api/post/getPosts`);
+                const baseUrl = import.meta.env.VITE_BASE_URL;
+                const res = await fetch(`${baseUrl}/api/post/getPosts`);
                 const data = await res.json();
                 if (!res.ok) {
                     console.log('err in fetching total number of posts json ', err);
@@ -53,7 +55,8 @@ const AdminDashBoard = () => {
         const fetchTotalComments = async () => {
             try {
                 setLoading(true);
-                const res = await fetch(`http://localhost:3000/api/comment/getAllComments?userId=${currentUser._id}`);
+                const baseUrl = import.meta.env.VITE_BASE_URL;
+                const res = await fetch(`${baseUrl}/api/comment/getAllComments?userId=${currentUser._id}`);
                 const data = await res.json();
                 if (!res.ok) {
                     console.log('err in fetching total number of comments json ', err);
@@ -69,7 +72,8 @@ const AdminDashBoard = () => {
         const fetchRecentUsers = async () => {
             try {
                 setLoading(true);
-                const res = await fetch(`http://localhost:3000/api/user/getUsers?limit=5&userId=${currentUser._id}`);
+                const baseUrl = import.meta.env.VITE_BASE_URL;
+                const res = await fetch(`${baseUrl}/api/user/getUsers?limit=5&userId=${currentUser._id}`);
                 const data = await res.json();
                 if (!res.ok) {
                     console.log('error in recent user api : ', data.message);
@@ -85,7 +89,8 @@ const AdminDashBoard = () => {
         const fetchRecentPosts = async () => {
             try {
                 setLoading(true);
-                const res = await fetch(`http://localhost:3000/api/post/getPosts?limit=5`);
+                const baseUrl = import.meta.env.VITE_BASE_URL;
+                const res = await fetch(`${baseUrl}/api/post/getPosts?limit=5`);
                 const data = await res.json();
                 if (!res.ok) {
                     console.log('error in recent post api : ', data.message);
@@ -101,7 +106,8 @@ const AdminDashBoard = () => {
         const fetchRecentComments = async () => {
             try {
                 setLoading(true);
-                const res = await fetch(`http://localhost:3000/api/comment/getRecentComments?limit=5&userId=${currentUser._id}`);
+                const baseUrl = import.meta.env.VITE_BASE_URL;
+                const res = await fetch(`${baseUrl}/api/comment/getRecentComments?limit=5&userId=${currentUser._id}`);
                 const data = await res.json();
                 if (!res.ok) {
                     console.log('error in recent comment api : ', data.message);

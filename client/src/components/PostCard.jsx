@@ -6,7 +6,8 @@ const PostCard = ({ post }) => {
     useEffect(() => {
         const fetchUser = async () => {
             try {
-                const res = await fetch(`http://localhost:3000/api/user/getUser/${post.user}`);
+                const baseUrl = import.meta.env.VITE_BASE_URL;
+                const res = await fetch(`${baseUrl}/api/user/getUser/${post.user}`);
                 const data = await res.json();
                 if (res.ok) {
                     setUser(data.userInfo);

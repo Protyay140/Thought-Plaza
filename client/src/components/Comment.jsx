@@ -18,7 +18,8 @@ const Comment = ({ postId }) => {
 
         const fetchComments = async () => {
             try {
-                const res = await fetch(`http://localhost:3000/api/comment/getComments/${postId}`, {
+                const baseUrl = import.meta.env.VITE_BASE_URL;
+                const res = await fetch(`${baseUrl}/api/comment/getComments/${postId}`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json'
@@ -55,7 +56,8 @@ const Comment = ({ postId }) => {
                 })
             }
 
-            const res = await fetch('http://localhost:3000/api/comment/create-comment', {
+            const baseUrl = import.meta.env.VITE_BASE_URL;
+            const res = await fetch(`${baseUrl}/api/comment/create-comment`, {
                 method: 'POST',
                 headers: {
                     'content-Type': 'application/json'
@@ -91,7 +93,8 @@ const Comment = ({ postId }) => {
         try {
             // alert(commentId);
             setOpenModal(false);
-            const res = await fetch(`http://localhost:3000/api/comment/delete-comment/${commentIdToDelete}`,{
+            const baseUrl = import.meta.env.VITE_BASE_URL;
+            const res = await fetch(`${baseUrl}/api/comment/delete-comment/${commentIdToDelete}`,{
                 method : 'DELETE',
                 credentials : 'include',
                 headers : {
@@ -124,7 +127,7 @@ const Comment = ({ postId }) => {
 
                 </> :
                     <>
-                        <p className='text-sm'>please signed in to comment . <span className='font-bold text-[#06b6d4]'><Link to='/sign-in'>sign-in</Link></span></p>
+                        <p className='text-sm mb-2'>please signed in to comment . <span className='font-bold text-[#06b6d4]'><Link to='/sign-in'>sign-in</Link></span></p>
                     </>
             }
             {currentUser && <>

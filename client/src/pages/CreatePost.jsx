@@ -60,7 +60,8 @@ const CreatePost = () => {
 
     const handlePublish = async () => {
         try {
-            const data = await fetch('http://localhost:3000/api/post/create-post', {
+            const baseUrl = import.meta.env.VITE_BASE_URL;
+            const data = await fetch(`${baseUrl}/api/post/create-post`, {
                 method: 'POST',
                 headers: {
                     'Content-type': 'application/json'

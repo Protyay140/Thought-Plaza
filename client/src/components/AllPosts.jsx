@@ -16,7 +16,8 @@ const AllPosts = () => {
   useEffect(() => {
     const fetchUserPost = async () => {
       try {
-        const data = await fetch(`http://localhost:3000/api/post/getPosts?userId=${currentUser._id}&limit=5`, {
+        const baseUrl = import.meta.env.VITE_BASE_URL;
+        const data = await fetch(`${baseUrl}/api/post/getPosts?userId=${currentUser._id}&limit=5`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json'
@@ -50,7 +51,8 @@ const AllPosts = () => {
   const handleShowMore = async () => {
     try {
       const startFrom = userPosts.length;
-      const data = await fetch(`http://localhost:3000/api/post/getPosts?userId=${currentUser._id}&startFrom=${startFrom}`, {
+      const baseUrl = import.meta.env.VITE_BASE_URL;
+      const data = await fetch(`${baseUrl}/api/post/getPosts?userId=${currentUser._id}&startFrom=${startFrom}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
@@ -76,7 +78,8 @@ const AllPosts = () => {
   const handleDeletePost = async () => {
     setOpenModal(false);
     try {
-      const data = await fetch(`http://localhost:3000/api/post/delete-post?postId=${postIdToDelete}`, {
+      const baseUrl = import.meta.env.VITE_BASE_URL;
+      const data = await fetch(`${baseUrl}/api/post/delete-post?postId=${postIdToDelete}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json'

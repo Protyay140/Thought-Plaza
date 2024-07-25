@@ -31,7 +31,8 @@ const Header = () => {
     console.log('location.search : ', location.search);
     const handleSignOut = async (req, res) => {
         try {
-            const data = await fetch('http://localhost:3000/api/user/signout', {
+            const baseUrl = import.meta.env.VITE_BASE_URL;
+            const data = await fetch(`${baseUrl}/api/user/signout`, {
                 method: 'POST',
                 credentials: 'include',
                 headers: {

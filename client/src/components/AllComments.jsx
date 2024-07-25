@@ -8,7 +8,8 @@ const AllComments = ({ comment , onDelete}) => {
     useEffect(() => {
         const fetchUser = async () => {
             try {
-                const res = await fetch(`http://localhost:3000/api/user/getUser/${comment.userId}`, {
+                const baseUrl = import.meta.env.VITE_BASE_URL;
+                const res = await fetch(`${baseUrl}/api/user/getUser/${comment.userId}`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json'

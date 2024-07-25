@@ -39,7 +39,8 @@ const SignUp = () => {
 
       seterrorMessage(null);
       setLoading(true);
-      const data = await fetch('http://localhost:3000/api/auth/signup', {
+      const baseUrl = import.meta.env.VITE_BASE_URL;
+      const data = await fetch(`${baseUrl}/api/auth/signup`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

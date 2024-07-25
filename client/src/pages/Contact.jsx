@@ -15,7 +15,8 @@ const Contact = () => {
   const handleContactForm = async () => {
     try {
       console.log('contact Data : ',contactData);
-      const res = await fetch(`http://localhost:3000/api/contact/sendMail`, {
+      const baseUrl = import.meta.env.VITE_BASE_URL;
+      const res = await fetch(`${baseUrl}/api/contact/sendMail`, {
         method : 'POST',
         headers: {
           'Content-Type': 'application/json'

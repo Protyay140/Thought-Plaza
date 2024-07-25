@@ -16,7 +16,8 @@ const AllUsers = () => {
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                const data = await fetch(`http://localhost:3000/api/user/getUsers?userId=${currentUser._id}&limit=5`, {
+                const baseUrl = import.meta.env.VITE_BASE_URL;
+                const data = await fetch(`${baseUrl}/api/user/getUsers?userId=${currentUser._id}&limit=5`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json'
@@ -50,7 +51,8 @@ const AllUsers = () => {
     const handleShowMore = async () => {
         try {
             const startFrom = users.length;
-            const data = await fetch(`http://localhost:3000/api/user/getUsers?userId=${currentUser._id}&startFrom=${startFrom}`, {
+            const baseUrl = import.meta.env.VITE_BASE_URL;
+            const data = await fetch(`${baseUrl}/api/user/getUsers?userId=${currentUser._id}&startFrom=${startFrom}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -77,7 +79,8 @@ const AllUsers = () => {
     const handleDeleteUser = async () => {
         setOpenModal(false);
         try {
-            const data = await fetch(`http://localhost:3000/api/user/deleteUsers/${userIdToDelete}`, {
+            const baseUrl = import.meta.env.VITE_BASE_URL;
+            const data = await fetch(`${baseUrl}/api/user/deleteUsers/${userIdToDelete}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json'
@@ -109,7 +112,7 @@ const AllUsers = () => {
         <>
             {
                 loadingUser == false ? <>
-                    <div className='overflow-x-auto'>
+                    <div className='overflow-x-auto '>
                         {
                             users?.length > 0 ? <>
                                 <Table hoverable>

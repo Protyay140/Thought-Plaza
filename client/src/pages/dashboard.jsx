@@ -29,7 +29,7 @@ const Dashboard = () => {
         <div className="sidebar md:min-h-screen md:w-56">
           <DashSidebar />
         </div>
-        <div className='main-content w-full p-2'>
+        <div className='main-content  w-full p-2 md:ml-2'>
           {
             tab=='profile' && <Profile />
           }

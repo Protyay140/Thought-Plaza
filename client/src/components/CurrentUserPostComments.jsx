@@ -13,7 +13,8 @@ const CurrentUserPostComments = () => {
         const fetchUserPostComments = async () => {
             try {
                 setLoading(true);
-                const res = await fetch(`http://localhost:3000/api/comment/getParticularUserPostComments/${currentUser._id}`);
+                const baseUrl = import.meta.env.VITE_BASE_URL;
+                const res = await fetch(`${baseUrl}/api/comment/getParticularUserPostComments/${currentUser._id}`);
                 const data = await res.json();
 
                 if (!res.ok) {
