@@ -4,6 +4,7 @@ import { delay, motion } from 'framer-motion'
 import Typewriter from 'typewriter-effect';
 import { HR, Spinner } from 'flowbite-react';
 import PostCard from '../components/PostCard';
+import { useNavigate } from 'react-router-dom';
 const Home = () => {
   const { currentUser } = useSelector(state => state.user);
   useEffect(() => {
@@ -12,7 +13,7 @@ const Home = () => {
 
   const [recentPostsLoading, setRecentPostsLoading] = useState(false);
   const [recentPosts, setRecentPosts] = useState([]);
-
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchRecentPost = async () => {
       try {
@@ -40,7 +41,7 @@ const Home = () => {
         <div className='hero  flex flex-col-reverse md:flex-row gap-2 pl-3'>
           <div className="left  md:w-1/2 flex flex-col gap-2">
             <div className="top text-center mt-3">
-              <span className='text-3xl font-bold'>Share Your Thoughts, Engage with the World</span>
+              <span className='text-2xl font-bold'>Share Your Thoughts, Engage with the World</span>
             </div>
             <div className="middle text-2xl text-teal-400 text-center mt-4">
               {/* <span className='text-md font-bold'>Join our community to create, share, and discuss posts with people from all around the globe.</span> */}
@@ -56,7 +57,11 @@ const Home = () => {
               <span>Welcome to Thought-Plaza, the place where your ideas take center stage. Create posts on topics that matter to you, share them with a vibrant community, and spark meaningful conversations. Whether you’re sharing your latest insights, telling a story, or commenting on others' posts, your voice matters here. With your personalized dashboard, you can easily keep track of your posts and see what others are saying about them. Dive in and start connecting!</span>
             </div>
             <div className="text-center">
-              <button className='bg-teal-400 p-2 px-5 text-white rounded-lg mt-5'>explore posts</button>
+              <button 
+              onClick={()=>{
+                navigate('/search?searchTerm=')
+              }}
+              className='bg-teal-400 p-2 px-5 text-white rounded-lg mt-5 hover:bg-teal-500'>explore posts</button>
             </div>
           </div>
           <div className="right  md:w-1/2">
@@ -68,7 +73,7 @@ const Home = () => {
             <div className='  w-1/2 mx-auto'>
               <img src="create_post.png" alt="" />
             </div>
-            <div classsName=' text-center font-bold'>
+            <div className=' text-center font-bold'>
               <span className='font-bold'> Create-Your Own post</span>
             </div>
           </div>
@@ -76,7 +81,7 @@ const Home = () => {
             <div className=' w-3/4 mx-auto'>
               <img src="explore_post.png" alt="" />
             </div>
-            <div classsName=' font-bold'>
+            <div className=' font-bold'>
               <span className='font-bold'>Explore posts</span>
             </div>
           </div>
@@ -84,7 +89,7 @@ const Home = () => {
             <div className=' w-3/4 mx-auto'>
               <img src="dashboard.png" alt="" />
             </div>
-            <div classsName=' font-bold'>
+            <div className=' font-bold'>
               <span className='font-bold'>Analyze your dashboard</span>
             </div>
           </div>

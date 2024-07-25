@@ -158,11 +158,11 @@ const SignIn = () => {
               <Link className='underline dark:hover:text-blue-500 dark:text-blue-400' to='/sign-up'> SignUp </Link></button>
           </p>
           <div>
-            {errorMessage &&
-              <Alert color='red' className='mt-2'>
-                {errorMessage}
-              </Alert>
-            }
+          {errorMessage && (
+            <Alert color='red' className='mt-2'>
+              {typeof errorMessage === 'object' ? JSON.stringify(errorMessage) : errorMessage}
+            </Alert>
+          )}
 
           </div>
         </div>

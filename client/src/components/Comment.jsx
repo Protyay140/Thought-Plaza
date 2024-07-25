@@ -12,7 +12,7 @@ const Comment = ({ postId }) => {
     const [openModal, setOpenModal] = useState(false);
     const [commentIdToDelete,setCommentIdToDelete] = useState();
     console.log('postId : ', postId);
-    console.log('userId : ', currentUser._id);
+    // console.log('userId : ', currentUser._id);
     const [userComments, setUserComments] = useState([]);
     useEffect(() => {
 
@@ -155,7 +155,7 @@ const Comment = ({ postId }) => {
                         {
                             userComments.map((comment) => {
                                 return (
-                                    <AllComments key={comment._id} comment={comment}
+                                    <AllComments key={comment?._id} comment={comment}
                                         onDelete={(commentId) => {
                                            setOpenModal(true);
                                            setCommentIdToDelete(commentId);

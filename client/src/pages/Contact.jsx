@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 const Contact = () => {
   const { currentUser } = useSelector(state => state.user);
   const [contactData, setContactData] = useState({
-    email: currentUser.email,
+    email: currentUser?.email || '',
     subject: '',
     message: '',
   })

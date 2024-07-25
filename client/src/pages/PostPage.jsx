@@ -112,7 +112,7 @@ const PostPage = () => {
                 </div>
                 <HR />
                 <div className='comment px-1 md:px-52 mt-2 '>
-                    <Comment postId={post._id} />
+                    <Comment postId={post?._id} />
                 </div>
                 <HR />
                 {
@@ -121,11 +121,11 @@ const PostPage = () => {
                         <div className="header text-center italic mb-3 font-bold">
                             Recent Posts
                         </div>
-                        <div className='recent-posts flex flex-col md:flex-row gap-2 justify-between'>
+                        <div className='recent-posts flex flex-col md:flex-row gap-2 justify-wrap'>
                             {
                                 recentPosts.map((recentpost) => {
                                     return (
-                                        <PostCard key={recentpost._id} post={recentpost} />
+                                        <PostCard key={recentpost?._id} post={recentpost} />
                                     )
                                 })
                             }

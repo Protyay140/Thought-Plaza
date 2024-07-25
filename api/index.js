@@ -16,12 +16,31 @@ dotenv.config();
 
 const port = 3000;
 
+const allowedOrigins = [
+    'http://localhost:5173',
+    'http://localhost:3000',
+    'https://thought-plaza.onrender.com'
+];
+
+// CORS options with a function to check allowed origins
 const corsOptions = {
-    origin: '*', // Your frontend origin
+    origin: function (origin, callback) {
+        if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+            callback(null, true); // Allow the request
+        } else {
+            callback(new Error('Not allowed by CORS')); // Deny the request
+        }
+    },
     credentials: true, // Allow credentials (cookies)
 };
 
+// const corsOptions = {
+//     origin: 'http://localhost:5173', // Allow all origins
+//     credentials: true, // Allow credentials (cookies)
+// };
+
 app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
 
 app.use(express.json());
 app.use(cookie());
@@ -36,9 +55,9 @@ mongoose.connect(
 
 app.use('/api/user', userRoutes);
 app.use('/api/auth', authRoutes);
-app.use('/api/post',postRoutes);
-app.use('/api/comment',commentRoutes);
-app.use('/api/contact',contactRoutes);
+app.use('/api/post', postRoutes);
+app.use('/api/comment', commentRoutes);
+app.use('/api/contact', contactRoutes);
 app.listen(port, () => {
     console.log('app is running on port ', port);
 })
@@ -46,7 +65,7 @@ app.listen(port, () => {
 app.use(express.static(path.join(__dirname, '../client/dist')));
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '../client', 'dist', 'index.html'));
-  });
+});
 
 app.use((err, req, res, next) => {
     const statuscode = err.status || 500;
