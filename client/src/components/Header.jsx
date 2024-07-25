@@ -116,7 +116,7 @@ const Header = () => {
                                         />
                                     }
                                 >
-                                    <Dropdown.Item >{currentUser.email}</Dropdown.Item>
+                                    <Dropdown.Item >{currentUser.username}</Dropdown.Item>
                                     {
                                         currentUser.isAdmin && <>
                                             <Link to='/dashboard?tab=dashboard'>
