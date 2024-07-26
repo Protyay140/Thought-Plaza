@@ -98,7 +98,7 @@ const Home = () => {
             <img src="home_pic.png" alt="hero_image" />
           </motion.div>
         </div>
-        <div className="key-points flex flex-col md:flex-row gap-2 mt-6">
+        <div className="key-point flex flex-col md:flex-row gap-2 mt-6">
           <div className='md:w-1/3  flex flex-col text-center gap-2'>
             <div className='  w-1/2 mx-auto'>
               <img src="create_post.png" alt="" />
