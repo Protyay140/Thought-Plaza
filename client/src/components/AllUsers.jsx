@@ -17,7 +17,7 @@ const AllUsers = () => {
         const fetchUsers = async () => {
             try {
                 const baseUrl = import.meta.env.VITE_BASE_URL;
-                const data = await fetch(`${baseUrl}/api/user/getUsers?userId=${currentUser._id}&limit=5`, {
+                const data = await fetch(`${baseUrl}/api/user/getUsers?userId=${currentUser._id}&limit=9`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json'
@@ -31,7 +31,7 @@ const AllUsers = () => {
                 } else {
                     setUsers(res.postInfo.users);
                     console.log('fetch users length : ', res.postInfo.users.length);
-                    if (res.postInfo.users.length < 5) {
+                    if (res.postInfo.users.length < 9) {
                         setShowMore(false);
                     }
                 }
@@ -66,7 +66,7 @@ const AllUsers = () => {
             } else {
                 setUsers((prev) => [...prev, ...res.postInfo.users]);
                 console.log('fetch user length : ', res.postInfo.users.length);
-                if (res.postInfo.users.length < 5) {
+                if (res.postInfo.users.length < 9) {
                     setShowMore(false);
                 }
             }
