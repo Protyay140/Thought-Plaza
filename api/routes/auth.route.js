@@ -50,7 +50,7 @@ router.post('/signin', async (req, res, next) => {
         }
 
         const token = jwt.sign(
-            { id: checkUser._id , isAdmin : checkUser.isAdmin }, process.env.JWT_SECRET
+            { id: checkUser._id, isAdmin: checkUser.isAdmin }, process.env.JWT_SECRET
         )
 
         // seperating the password from the rest of the information of the user .....
@@ -61,7 +61,8 @@ router.post('/signin', async (req, res, next) => {
             httpOnly: true,
             secure: true,
             sameSite: 'None',
-            maxAge: 24 * 60 * 60 * 1000
+            maxAge: 24 * 60 * 60 * 1000,
+            domain: process.env.NODE_ENV === 'production' ? 'thought-plaza.onrender.com' : 'localhost'
         }).json({ success: true, message: "signin successfull", userData: rest });
     } catch (err) {
         next(err);
@@ -74,11 +75,17 @@ router.post('/google', async (req, res, next) => {
         const user = await User.findOne({ email });
         if (user) {
             const token = jwt.sign(
-                { id: user._id , isAdmin : user.isAdmin }, process.env.JWT_SECRET
+                { id: user._id, isAdmin: user.isAdmin }, process.env.JWT_SECRET
             )
 
             const { password: pass, ...rest } = user._doc;
-            return res.status(200).cookie('auth_token', token, { httpOnly: true }).json({ success: true, message: "signin successfull", userData: rest })
+            return res.status(200).cookie('auth_token', token, {
+                httpOnly: true,
+                secure: true,
+                sameSite: 'None',
+                maxAge: 24 * 60 * 60 * 1000,
+                domain: process.env.NODE_ENV === 'production' ? 'thought-plaza.onrender.com' : 'localhost'
+            }).json({ success: true, message: "signin successfull", userData: rest })
         } else {
             const genPassword = Math.random().toString(36).slice(-8) + Math.random().toString(36).slice(-8);
             const hashPassword = bcryptjs.hashSync(genPassword, 10);
@@ -92,7 +99,7 @@ router.post('/google', async (req, res, next) => {
             })
 
             const token = jwt.sign(
-                { id: newUser._id  , isAdmin : newUser.isAdmin}, process.env.JWT_SECRET
+                { id: newUser._id, isAdmin: newUser.isAdmin }, process.env.JWT_SECRET
             )
             const { password: pass, ...rest } = newUser._doc;
 

@@ -18,6 +18,7 @@ const port = 3000;
 const baseUrl = process.env.BASE_CLIENT_URL;
 const allowedOrigins = [
     baseUrl,
+    'http://localhost:5173',
     'http://localhost:3000',
     'https://thought-plaza.onrender.com'
 ];
