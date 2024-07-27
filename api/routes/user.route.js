@@ -5,12 +5,12 @@ const bcryptjs = require('bcryptjs');
 const User = require('../models/user_model.js');
 const Post = require('../models/post_model.js');
 
-router.put('/update/:userId', verifyUser, async (req, res, next) => {
+router.put('/update/:userId', async (req, res, next) => {
     try {
-        // console.log('verify User : ', req.user);
-        if (req.user.id != req.params.userId) {
-            return res.status(401).json({ success: false, message: "not allowed !!!" });
-        } else {
+        
+        // if (req.user.id != req.params.userId) {
+        //     return res.status(401).json({ success: false, message: "not allowed !!!" });
+        // } else {
             if (req.body.password) {
                 req.body.password = bcryptjs.hashSync(req.body.password, 10);
             }
@@ -28,16 +28,17 @@ router.put('/update/:userId', verifyUser, async (req, res, next) => {
             return res.status(200).json({ success: true, message: "update successfull", userData: rest });
 
         }
-    } catch (err) {
+     catch (err) {
         next(err);
     }
 })
 
-router.delete('/delete/:userId', verifyUser, async (req, res, next) => {
+router.delete('/delete/:userId', async (req, res, next) => {
     try {
-        if (req.user.id != req.params.userId) {
-            return res.status(401).json({ success: false, message: "not allowed to delete !!!" });
-        } else {
+        const user = await User.findOne({_id:req.params.userId})
+        if (user.isAdmin) {
+            return res.status(401).json({ success: false, message: "You can not delete Admin" });
+        }  else {
             const deletedUser = await User.findByIdAndDelete(req.params.userId);
 
             res.status(200).json({ success: true, message: "user successfully deleted !!!" })
