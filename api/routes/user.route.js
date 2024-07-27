@@ -14,7 +14,7 @@ router.put('/update/:userId', async (req, res, next) => {
             if (req.body.password) {
                 req.body.password = bcryptjs.hashSync(req.body.password, 10);
             }
-            const updateUser = await User.findByIdAndUpdate(req.user.id, {
+            const updateUser = await User.findByIdAndUpdate(req.params.userId, {
                 $set: {
                     username: req.body.username,
                     email: req.body.email,
