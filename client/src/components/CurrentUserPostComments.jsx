@@ -51,44 +51,45 @@ const CurrentUserPostComments = () => {
             </>
                 :
                 <>
-                    <Table hoverable>
-                        <Table.Head>
-                            <Table.HeadCell>
-                                <span className="sr-only">show</span>
-                            </Table.HeadCell>
-                            <Table.HeadCell>Date</Table.HeadCell>
-                            <Table.HeadCell>User Id</Table.HeadCell>
-                            <Table.HeadCell>Post Id</Table.HeadCell>
-                            <Table.HeadCell>Comment</Table.HeadCell>
-                            {/* <Table.HeadCell>
+                    <div className='overflow-x-auto'>
+                        <Table hoverable>
+                            <Table.Head>
+                                <Table.HeadCell>
+                                    <span className="sr-only">show</span>
+                                </Table.HeadCell>
+                                <Table.HeadCell>Date</Table.HeadCell>
+                                <Table.HeadCell>User Id</Table.HeadCell>
+                                <Table.HeadCell>Post Id</Table.HeadCell>
+                                <Table.HeadCell>Comment</Table.HeadCell>
+                                {/* <Table.HeadCell>
                                 <span className="sr-only">delete</span>
                             </Table.HeadCell> */}
-                        </Table.Head>
+                            </Table.Head>
 
-                        <Table.Body className="divide-y">
-                            {
-                                comments.map((comment) => {
-                                    return (
+                            <Table.Body className="divide-y">
+                                {
+                                    comments.map((comment) => {
+                                        return (
 
-                                        <Table.Row key={comment._id} className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                                            <Table.Cell>
-                                                <a onClick={() => {
-                                                    navigate(`/post/${comment.postId}`)
-                                                }} className="cursor-pointer font-medium text-cyan-600 hover:underline dark:text-cyan-500">
-                                                    show
-                                                </a>
-                                            </Table.Cell>
-                                            <Table.Cell>{new Date(comment.createdAt).toLocaleString()}</Table.Cell>
-                                            <Table.Cell>{comment.userId}</Table.Cell>
-                                            <Table.Cell>
-                                                {
-                                                   comment.postId
-                                                }
+                                            <Table.Row key={comment._id} className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                                                <Table.Cell>
+                                                    <a onClick={() => {
+                                                        navigate(`/post/${comment.postId}`)
+                                                    }} className="cursor-pointer font-medium text-cyan-600 hover:underline dark:text-cyan-500">
+                                                        show
+                                                    </a>
+                                                </Table.Cell>
+                                                <Table.Cell>{new Date(comment.createdAt).toLocaleString()}</Table.Cell>
+                                                <Table.Cell>{comment.userId}</Table.Cell>
+                                                <Table.Cell>
+                                                    {
+                                                        comment.postId
+                                                    }
 
-                                            </Table.Cell>
-                                            <Table.Cell>{comment.comment}</Table.Cell>
+                                                </Table.Cell>
+                                                <Table.Cell>{comment.comment}</Table.Cell>
 
-                                            {/* <Table.Cell>
+                                                {/* <Table.Cell>
                                                 <a onClick={() => { setOpenModal(true), setPostIdToDelete(post._id) }} className="cursor-pointer font-medium text-cyan-600 hover:underline dark:text-cyan-500">
                                                     delete
                                                 </a>
@@ -113,13 +114,14 @@ const CurrentUserPostComments = () => {
                                                 </Modal>
                                             </Table.Cell> */}
 
-                                        </Table.Row>
+                                            </Table.Row>
 
-                                    )
-                                })
-                            }
-                        </Table.Body>
-                    </Table>
+                                        )
+                                    })
+                                }
+                            </Table.Body>
+                        </Table>
+                    </div>
                 </>
             }
         </>

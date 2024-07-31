@@ -40,7 +40,6 @@ router.delete('/delete/:userId', async (req, res, next) => {
             return res.status(401).json({ success: false, message: "You can not delete Admin" });
         }  else {
             const deletedUser = await User.findByIdAndDelete(req.params.userId);
-
             res.status(200).json({ success: true, message: "user successfully deleted !!!" })
         }
     } catch (err) {
@@ -56,7 +55,9 @@ router.delete('/deleteUsers/:userId', async (req, res, next) => {
             return res.status(401).json({ success: false, message: "You can not delete Admin" });
         } else {
             const deletedUser = await User.findByIdAndDelete(req.params.userId);
-
+            
+            // delete all the posts of that user ..........
+            await Post.deleteMany({user:req.params.userId});
             res.status(200).json({ success: true, message: "user successfully deleted !!!" })
         }
     } catch (err) {
