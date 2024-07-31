@@ -53,8 +53,8 @@ const Home = () => {
 
   return (
     <>
-      <div className='main-container min-h-screen flex flex-col  gap-2 p-2'>
-        <div className='hero  flex flex-col-reverse md:flex-row gap-2 pl-3'>
+      <div className='main-container min-h-screen flex flex-col  gap-2 p-2 overflow-x-hidden'>
+        <div className='hero  flex flex-col-reverse md:flex-row gap-2 pl-3 overflow-x-hidden'>
           <motion.div
 
             initial={{ opacity: 0, x: -100 }}

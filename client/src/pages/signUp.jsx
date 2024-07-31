@@ -89,11 +89,11 @@ const SignUp = () => {
         transition={{ duration: 0.5, type: 'spring', stiffness: 120, ease: 'easeInOut' }}
         className='container flex flex-col min-w-full items-center md:gap-4'>
         <div className='left md:w-1/2 md:mt-5'>
-          <div className='logo text-sm sm:text-lg dark:text-white flex  justify-center'>
+          <div className='logo text-sm sm:text-lg dark:text-white flex justify-center'>
             <div>
               <img src="logo.png" alt="logo" className='h-10 -mt-1' />
             </div>
-            <div><Link to={'/'} className='font-semibold rounded-lg py-1 px-2 '>Thought-Plaza</Link></div>
+            <div className='mt-1'><Link to={'/'} className='font-semibold'>Thought-Plaza</Link></div>
           </div>
           {/* <div className="desc text-sm mt-3 text-center">
             <p className='first-letter:text-3xl italic'>Welcome to Thought-Plaza, a vibrant space where we explore. Join us on a journey of discovery, insight, and inspiration as we delve into beautiful thoughts.</p>
