@@ -67,8 +67,11 @@ const Header = () => {
     return (
         <div>
             <Navbar className='border-b-2 '>
-                <div className='logo text-sm sm:text-lg dark:text-white'>
-                    <Link to={'/'} className='text-white font-semibold rounded-lg py-1 px-2 bg-gradient-to-r from-purple-500 via-pink-500 to-violet-500'>Thought-Plaza</Link>
+                <div className='logo text-sm sm:text-lg dark:text-white flex'>
+                    <div>
+                        <img src="logo.png" alt="logo" className='h-10 -mt-1'/>
+                    </div>
+                    <div><Link to={'/'} className='font-semibold rounded-lg py-1 px-2 '>Thought-Plaza</Link></div>
                 </div>
                 <div className='search text-red-700 hidden lg:inline' >
                     <form onSubmit={handleFormSubmit} className=''>

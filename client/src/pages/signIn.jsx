@@ -8,12 +8,13 @@ import { toast } from 'react-toastify';
 import { signInFailure, signInStart, signInSuccess } from '../redux/user/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import Oauth from '../components/Oauth';
+import { motion } from 'framer-motion';
 
 const SignIn = () => {
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
-  const {loading , error:errorMessage} = useSelector(state=> state.user);
+  const { loading, error: errorMessage } = useSelector(state => state.user);
 
   // const [errorMessage, seterrorMessage] = useState(null);
   // const [loading, setLoading] = useState(false);
@@ -71,8 +72,8 @@ const SignIn = () => {
       });
       if (data.ok) {
         navigate('/');
-        toast.success('successfully signin',{
-          position : "top-center"
+        toast.success('successfully signin', {
+          position: "top-center"
         })
         dispatch(signInSuccess(res.userData));
       }
@@ -93,15 +94,22 @@ const SignIn = () => {
   }
 
   return (
-    <div className='pt-20 p-2 '>
-      <div className='container flex flex-col md:flex-row md:gap-4'>
-        <div className='left md:w-1/2 md:mt-16'>
-          <div className='logo font-bold text-lg sm:text-lg dark:text-white text-center'>
-            <Link to={'/'} className='text-white font-semibold rounded-full py-3 px-3 bg-gradient-to-r from-purple-500 via-pink-500 to-violet-500'>Thought-Plaza</Link>
+    <div className='p-2 pb-5 overflow-x-hidden'>
+      <motion.div
+        initial={{ scale: 0.2 }}
+        animate={{ scale: 0.9 }}
+        transition={{ duration: 0.5, type: 'spring', stiffness: 120, ease: 'easeInOut' }}
+        className='container flex flex-col md:gap-4 items-center min-w-full'>
+        <div className='left md:w-1/2 md:mt-5'>
+          <div className='logo text-sm sm:text-lg dark:text-white flex  justify-center'>
+            <div>
+              <img src="logo.png" alt="logo" className='h-10 -mt-1' />
+            </div>
+            <div><Link to={'/'} className='font-semibold rounded-lg py-1 px-2 '>Thought-Plaza</Link></div>
           </div>
-          <div className="desc text-sm mt-3 text-center">
+          {/* <div className="desc text-sm mt-3 text-center">
             <p className='first-letter:text-3xl italic'>Welcome to Thought-Plaza, a vibrant space where we explore. Join us on a journey of discovery, insight, and inspiration as we delve into beautiful thoughts.</p>
-          </div>
+          </div> */}
         </div>
         <div className='right mt-10 md:mt-0 md:w-1/3'>
           <form >
@@ -159,15 +167,15 @@ const SignIn = () => {
               <Link className='underline dark:hover:text-blue-500 dark:text-blue-400' to='/sign-up'> SignUp </Link></button>
           </p>
           <div>
-          {errorMessage && (
-            <Alert color='red' className='mt-2'>
-              {typeof errorMessage === 'object' ? JSON.stringify(errorMessage) : errorMessage}
-            </Alert>
-          )}
+            {errorMessage && (
+              <Alert color='red' className='mt-2'>
+                {typeof errorMessage === 'object' ? JSON.stringify(errorMessage) : errorMessage}
+              </Alert>
+            )}
 
           </div>
         </div>
-      </div>
+      </motion.div>
     </div>
   )
 }

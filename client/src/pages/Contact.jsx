@@ -43,7 +43,7 @@ const Contact = () => {
 
   return (
     <>
-      <div className="container flex justify-center min-h-screen items-center text-center">
+      <div className="container flex justify-center min-h-screen min-w-full items-center text-center overflow-x-hidden">
         <motion.div 
         initial = {{scale:0.2}}
         animate = {{scale:0.9}}
