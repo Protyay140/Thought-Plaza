@@ -21,7 +21,6 @@ const allowedOrigins = [
     'http://localhost:5173',
     'http://localhost:3000',
     'https://thought-plaza.onrender.com',
-    'https://thought-plaza.vercel.app'
 ];
 
 // CORS options with a function to check allowed origins
